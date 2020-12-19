@@ -14,6 +14,8 @@ jobs:
         with:
           fetch-depth: 0
           ref: main
+      - name: Fetch history
+        run: git fetch --prune --unshallow
       - name: Set up Helm
         uses: azure/setup-helm@v1
         with:
@@ -27,11 +29,17 @@ jobs:
         id: list-changed
         run: |
           changed=$(ct list-changed)
+          echo "::set-output name=LIST_CHANGED::$changed"
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
       - name: Run chart-testing (lint)
-        run: ct lint
+        if: steps.list-changed.outputs.changed == 'true'
+        env:
+          LIST_CHANGED: ${{ steps.list-changed.outputs.LIST_CHANGED }}
+        run: |
+          echo "List of changed HELM Charts : $LIST_CHANGED"
+          ct lint
 
   lint-docs:
     runs-on: ubuntu-latest
