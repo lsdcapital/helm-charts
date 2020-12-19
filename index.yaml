@@ -3,7 +3,17 @@ entries:
   testchart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-19T13:55:07.607237321Z"
+    created: "2020-12-19T13:59:55.181879007Z"
+    description: A Helm chart for Kubernetes
+    digest: 83385efc1300929cec5c70561369026d23a69beff4d7b06ea2d711b30eb94971
+    name: testchart
+    type: application
+    urls:
+    - https://lsdcapital.github.io/helm-charts/testchart-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-12-19T13:59:55.181319493Z"
     description: A Helm chart for Kubernetes
     digest: 795bb9d06f04192eda8f0325b8cbd45c808efc701975b79724bff7a4908a094e
     name: testchart
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://lsdcapital.github.io/helm-charts/testchart-0.1.0.tgz
     version: 0.1.0
-generated: "2020-12-19T13:55:07.60649111Z"
+generated: "2020-12-19T13:59:55.180555973Z"
