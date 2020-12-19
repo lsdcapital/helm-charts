@@ -32,8 +32,6 @@ jobs:
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
-        with:
-          config: .github/ct.yaml
       - name: Run chart-testing (lint)
         run: ct lint
         with:
