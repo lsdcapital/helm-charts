@@ -27,13 +27,13 @@ jobs:
           config: .github/ct.yaml
       - name: Run chart-testing (list-changed)
         id: list-changed
-        with:
-          config: .github/ct.yaml
         run: |
           changed=$(ct list-changed)
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
+        with:
+          config: .github/ct.yaml
       - name: Run chart-testing (lint)
         run: ct lint
         with:
