@@ -1,5 +1,6 @@
 target-branch: main
-chart-dirs: charts
+chart-dirs:
+  - charts
 helm-extra-args: --timeout 1200s
 check-version-increment: true
 debug: true
