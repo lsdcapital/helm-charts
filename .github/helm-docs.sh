@@ -9,4 +9,5 @@ tar -xf /tmp/helm-docs.tar.gz helm-docs
 
 # validate docs
 ./helm-docs
-git diff --exit-code
+#git diff --exit-code
+git diff
