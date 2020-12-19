@@ -50,15 +50,6 @@ jobs:
           ref: main
       - name: Run helm-docs
         run: .github/helm-docs.sh
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v5
-        with:
-          author_name: GitHub Action
-          author_email: github+noreply@lsd.capital
-          message: "GitHub helm-docs Action"
-          add: "README.md"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # kubeval-chart:
   #   runs-on: ubuntu-latest

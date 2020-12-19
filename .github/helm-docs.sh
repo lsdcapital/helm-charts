@@ -9,5 +9,6 @@ tar -xf /tmp/helm-docs.tar.gz helm-docs
 
 # validate docs
 ./helm-docs
-#git diff --exit-code
-git diff
+git diff --exit-code
+
+echo "If this test is failing, you need to run helm-docs to set up your chart documentation as per a template"
