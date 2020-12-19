@@ -1,4 +1,4 @@
-# LSDcapital charts
+# LSDcapital helm 3 charts
 
 ```
 helm repo add lsdcapital https://lsdcapital.github.io/helm-charts
