@@ -1,7 +1,7 @@
 # LSDcapital charts
 
 ```
-helm repo add lsdcapital https://lsdcapital.github.io/charts
+helm repo add lsdcapital https://lsdcapital.github.io/helm-charts
 helm repo update
 ```
 

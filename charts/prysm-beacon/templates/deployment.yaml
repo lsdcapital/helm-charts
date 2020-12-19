@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "prysm-beacon.fullname" . }}
+  labels:
+    {{- include "prysm-beacon.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.beacon.autoscaling.enabled }}
+  replicas: {{ .Values.beacon.deployment.replicaCount }}
+  {{- end }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "prysm-beacon.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "prysm-beacon.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "prysm-beacon.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.beacon.deployment.podSecurityContext | nindent 8 }}
+      volumes:
+      - name: node-data
+        persistentVolumeClaim:
+          claimName: {{ include "prysm-beacon.fullname" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.beacon.image.repository }}:{{ .Values.beacon.image.tag | default .Chart.AppVersion }}"
+          args:
+            - "--http-web3provider={{ .Values.beacon.web3HttpProvider }}"
+            - "--verbosity={{ .Values.beacon.verbosity }}"
+            - "--datadir={{ .Values.beacon.deployment.dataDir }}"
+            - "--log-file={{ .Values.beacon.logfile }}"
+            - "--p2p-max-peers={{ .Values.beacon.p2pMaxPeers }}"
+            - "--rpc-host={{ .Values.beacon.rpcHost }}"
+            - "--monitoring-host=0.0.0.0"
+            - "--monitoring-port={{ .Values.beacon.ports.monitoring }}"
+            {{- if .Values.beacon.acceptTermsOfUse }}
+            - "--accept-terms-of-use"
+            {{- end }}
+            {{- if .Values.beacon.ingress.extip }}
+            - "--p2p-host-ip={{ .Values.beacon.ingress.extip }}"
+            {{- end }}
+            - "--{{ .Values.beacon.chain }}"
+          imagePullPolicy: {{ .Values.beacon.image.pullPolicy }}
+          resources:
+          {{- toYaml .Values.beacon.resources | nindent 12 }}
+          ports:
+            - containerPort: {{ .Values.beacon.ports.p2pTcp }}
+              protocol: TCP
+            - containerPort: {{ .Values.beacon.ports.p2pUdp }}
+              protocol: UDP
+            - name: grpc
+              containerPort: {{ .Values.beacon.ports.grpc }}
+              protocol: TCP
+            - name: monitoring
+              containerPort: {{ .Values.beacon.ports.monitoring }}
+              protocol: TCP
+          volumeMounts:
+          - name: node-data
+            mountPath: {{ .Values.beacon.deployment.dataDir }}
+
