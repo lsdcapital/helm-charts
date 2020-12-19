@@ -27,13 +27,11 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed)
+          changed=$(ct list-changed --target-branch main)
           echo "::set-output name=LIST_CHANGED::$changed"
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
-        with:
-          config: .github/ct.yaml
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'
         env:
@@ -48,8 +46,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: main
       - name: Run helm-docs
         run: .github/helm-docs.sh
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v5
+        with:
+          author_name: GitHub Action
+          author_email: github+noreply@lsd.capital
+          message: "GitHub helm-docs Action"
+          add: "README.md"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # kubeval-chart:
   #   runs-on: ubuntu-latest
