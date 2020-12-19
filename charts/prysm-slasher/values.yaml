@@ -1,0 +1,34 @@
+nameOverride: ""
+fullnameOverride: ""
+
+slasher:
+  chain: "mainnet"  # mainnet | pyrmont
+  debug: false
+  acceptTermsOfUse: false
+  beacon: "prysm-beacon:4000"
+
+  deployment:
+    replicaCount: 1
+    image:
+      repository: "gcr.io/prysmaticlabs/prysm/slasher"
+      pullPolicy: IfNotPresent
+      # Overrides the image tag whose default is the chart appVersion.
+      tag: ""
+    dataDir: "/data"
+
+  persistentVolume:
+    size: 1Gi
+
+  # healthEndpoint: "/healthz"
+  # configDir: "/config"
+  # configName: "validator.yaml"
+
+  resources:
+    limits:
+      memory: 1Gi
+    requests:
+      memory: 1Gi
+
+  ports:
+    metrics: 8080
+
