@@ -1,11 +1,25 @@
 apiVersion: v1
 entries:
+  prysm-beacon:
+  - apiVersion: v2
+    appVersion: v1.0.4
+    created: "2020-12-19T14:30:46.749683618Z"
+    description: Eth2 Beacon Chain Node by Prysmatic Labs
+    digest: 3cc149b2743c63a7e49c8559834afce28ec2f1bdc26eb53bc6498d9f4c1fa6cc
+    maintainers:
+    - email: stefan@lsdopen.io
+      name: Stefan Lesicnik
+    name: prysm-beacon
+    type: application
+    urls:
+    - https://lsdcapital.github.io/helm-charts/prysm-beacon-1.0.0.tgz
+    version: 1.0.0
   testchart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-19T14:08:50.165424536Z"
+    created: "2020-12-19T14:30:46.751301512Z"
     description: A Helm chart for Kubernetes
-    digest: ed9c8c38c701a4d15aa380c830f24bc02ea16a8857d88ace49f563234f6a1fbd
+    digest: 5dd76e67d7556c3d43e4fea9b29bc3c8b43cd27454345cfa0f777ba65c0655d2
     name: testchart
     type: application
     urls:
@@ -13,7 +27,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-19T14:08:50.164961435Z"
+    created: "2020-12-19T14:30:46.750768414Z"
     description: A Helm chart for Kubernetes
     digest: 83385efc1300929cec5c70561369026d23a69beff4d7b06ea2d711b30eb94971
     name: testchart
@@ -23,7 +37,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-19T14:08:50.164497333Z"
+    created: "2020-12-19T14:30:46.750215916Z"
     description: A Helm chart for Kubernetes
     digest: 795bb9d06f04192eda8f0325b8cbd45c808efc701975b79724bff7a4908a094e
     name: testchart
@@ -31,4 +45,4 @@ entries:
     urls:
     - https://lsdcapital.github.io/helm-charts/testchart-0.1.0.tgz
     version: 0.1.0
-generated: "2020-12-19T14:08:50.163861432Z"
+generated: "2020-12-19T14:30:46.748885422Z"
