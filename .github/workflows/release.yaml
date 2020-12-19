@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - "lsdcapital/**"
+      - "charts/**"
 
 jobs:
   release:

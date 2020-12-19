@@ -3,7 +3,7 @@ name: Lint and Test Charts
 on:
   pull_request:
     paths:
-      - "lsdcapital/**"
+      - "charts/**"
 
 jobs:
   lint-chart:
@@ -42,7 +42,7 @@ jobs:
           - v1.17.4
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@master
       - name: Run kubeval
         env:
           KUBERNETES_VERSION: ${{ matrix.k8s }}
