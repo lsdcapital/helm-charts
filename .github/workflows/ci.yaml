@@ -20,8 +20,11 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.7
+          config: .github/ct.yaml
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.0.1
+        with:
+          config: .github/ct.yaml
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |

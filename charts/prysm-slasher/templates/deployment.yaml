@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "prysm-slasher.fullname" . }}
+  labels:
+  {{- include "prysm-slasher.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.slasher.deployment.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+  {{- include "prysm-slasher.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+    {{- include "prysm-slasher.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- if .Values.slasher.debug }}
+          image: centos:8
+          command: ['sleep']
+          args: ['infinity']
+          {{- else }}
+          image: "{{ .Values.slasher.deployment.image.repository }}:{{ .Values.slasher.deployment.image.tag | default .Chart.AppVersion }}"
+          args:
+            - "--beacon-rpc-provider={{ .Values.slasher.beacon }}"
+            - "--datadir=/data"
+            - "--monitoring-host=0.0.0.0"
+            - "--monitoring-port={{ .Values.slasher.ports.metrics }}"
+            {{- if .Values.slasher.acceptTermsOfUse }}
+            - "--accept-terms-of-use"
+            {{- end }}
+            - "--{{ .Values.slasher.chain }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.slasher.deployment.image.pullPolicy }}
+          resources:
+          {{ toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.slasher.deployment.dataDir }}
+          # livenessProbe:
+          #   httpGet:
+          #     path: {{ .Values.slasher.deployment.healthEndpoint }}
+          #     port: {{ .Values.slasher.ports.metrics }}
+          # readinessProbe:
+          #   httpGet:
+          #     path: {{ .Values.slasher.deployment.healthEndpoint }}
+          #     port: {{ .Values.slasher.ports.metrics }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "prysm-slasher.fullname" . }}
