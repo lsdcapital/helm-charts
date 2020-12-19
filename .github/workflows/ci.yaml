@@ -36,15 +36,6 @@ jobs:
         run: ct lint
         with:
           config: .github/ct.yaml
-      - name: Create kind cluster
-        uses: helm/kind-action@v1.0.0
-        if: steps.list-changed.outputs.changed == 'true'
-        with:
-          config: .github/ct.yaml
-      - name: Run chart-testing (install)
-        run: ct install
-        with:
-          config: .github/ct.yaml
 
   lint-docs:
     runs-on: ubuntu-latest
