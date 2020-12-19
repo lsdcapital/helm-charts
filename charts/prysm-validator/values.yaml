@@ -1,0 +1,35 @@
+nameOverride: ""
+fullnameOverride: ""
+
+validator:
+  chain: "mainnet"  # mainnet | pyrmont
+  acceptTermsOfUse: false
+  graffiti: ""
+  beacon: "prysm-beacon:4000"
+  logfile: /data/validator.log
+  verbosity: info
+  debug:
+    init: false
+    main: false
+
+  deployment:
+    image:
+      repository: "gcr.io/prysmaticlabs/prysm/validator"
+      pullPolicy: IfNotPresent
+      # Overrides the image tag whose default is the chart appVersion.
+      tag: ""
+    dataDir: "/data"
+
+  persistentVolume:
+    size: 1Gi
+
+  resources:
+    limits:
+      memory: 1Gi
+    requests:
+      memory: 1Gi
+  ports:
+    monitoring: 8081
+
+service:
+  type: ClusterIP
