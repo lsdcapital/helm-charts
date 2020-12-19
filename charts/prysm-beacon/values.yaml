@@ -3,13 +3,14 @@ nameOverride: ""
 fullnameOverride: ""
 
 beacon:
-  chain: "mainnet"  # mainnet | pyrmont
+  chain: "mainnet" # mainnet | pyrmont
   acceptTermsOfUse: false
   web3HttpProvider: "CHANGEME"
   p2pMaxPeers: 60
   logfile: /data/beacon.log
   verbosity: info
   rpcHost: 0.0.0.0
+  eth1HeaderReqLimit: {}
 
   image:
     repository: "gcr.io/prysmaticlabs/prysm/beacon-chain"
@@ -23,7 +24,8 @@ beacon:
       runAsUser: 101
       runAsGroup: 101
       fsGroup: 101
-    securityContext: {}
+    securityContext:
+      {}
       # capabilities:
       #   drop:
       #   - ALL
@@ -73,8 +75,3 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
-
-
-
-
-
