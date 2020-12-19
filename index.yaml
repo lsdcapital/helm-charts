@@ -3,9 +3,9 @@ entries:
   prysm-beacon:
   - apiVersion: v2
     appVersion: v1.0.5
-    created: "2020-12-19T19:10:09.374532607Z"
+    created: "2020-12-19T19:49:07.011444022Z"
     description: Eth2 Beacon Chain Node by Prysmatic Labs
-    digest: 73ab55983afb48f6c2c4f9e566b8eb2276a4781a80c8d472a8036fe161cd7ca7
+    digest: 6f2eb6171ff9282e189775ed96a639757698b87ef529b4dfe66b03c4e6bfbbba
     maintainers:
     - email: stefan@lsdopen.io
       name: Stefan Lesicnik
@@ -16,7 +16,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: v1.0.4
-    created: "2020-12-19T19:10:09.37394261Z"
+    created: "2020-12-19T19:49:07.010838521Z"
     description: Eth2 Beacon Chain Node by Prysmatic Labs
     digest: c6b9530a57a30031ed78e2e3d5f40fa7774c17d41c9d629251ce8616c84f27ed
     maintainers:
@@ -27,12 +27,33 @@ entries:
     urls:
     - https://lsdcapital.github.io/helm-charts/prysm-beacon-1.0.0.tgz
     version: 1.0.0
+  prysm-monitoring:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-12-19T19:49:07.024459634Z"
+    dependencies:
+    - name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 12.0.1
+    - name: prometheus-blackbox-exporter
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 4.10.1
+    - name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 6.1.10
+    description: Monitor Prsym ETH2 with promoethues & grafana
+    digest: 40405cf1858a4ac1364d8da35f2f91aaaec6ffb832d286c973f679e3642ef62e
+    name: prysm-monitoring
+    type: application
+    urls:
+    - https://lsdcapital.github.io/helm-charts/prysm-monitoring-0.1.0.tgz
+    version: 0.1.0
   prysm-slasher:
   - apiVersion: v2
-    appVersion: v1.0.4
-    created: "2020-12-19T19:10:09.374935504Z"
+    appVersion: v1.0.5
+    created: "2020-12-19T19:49:07.024881335Z"
     description: Eth2 Slasher by Prysmatic Labs
-    digest: e21c3cd5903418afea1280ca41931963c8a362a724cdf8177c148d8b092bd445
+    digest: 461bf93eb1c5ebb3bcfee37fddebebe3913477cb50a74bf5c2d9ccefd4f3953a
     maintainers:
     - email: stefan@lsdopen.io
       name: Stefan Lesicnik
@@ -41,12 +62,26 @@ entries:
     urls:
     - https://lsdcapital.github.io/helm-charts/prysm-slasher-1.0.0.tgz
     version: 1.0.0
+  prysm-validator:
+  - apiVersion: v2
+    appVersion: v1.0.5
+    created: "2020-12-19T19:49:07.025360135Z"
+    description: Eth2 Validator by Prysmatic Labs
+    digest: 8178a36da731616291ad0eaa5004b084604332ddc4a2f4984bdc6209bd3debf4
+    maintainers:
+    - email: stefan@lsdopen.io
+      name: Stefan Lesicnik
+    name: prysm-validator
+    type: application
+    urls:
+    - https://lsdcapital.github.io/helm-charts/prysm-validator-1.0.0.tgz
+    version: 1.0.0
   testchart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-19T19:10:09.37756489Z"
+    created: "2020-12-19T19:49:07.027433337Z"
     description: A Helm chart for Kubernetes
-    digest: 7cde24832a6f7cfc71493b1f80e0a909016c254b64c119f0f2537ab7f37cb881
+    digest: 090a7cbe21a0086af5afe0d4edd3572a8a02bbb294d992b4cacb35c38bf88979
     name: testchart
     type: application
     urls:
@@ -54,7 +89,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-19T19:10:09.376548796Z"
+    created: "2020-12-19T19:49:07.026925336Z"
     description: A Helm chart for Kubernetes
     digest: cc05e81904fd0aea0eac9994539f8bcde0e7a729779f85620d69d9c407001f2b
     name: testchart
@@ -64,7 +99,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-19T19:10:09.376027398Z"
+    created: "2020-12-19T19:49:07.026427436Z"
     description: A Helm chart for Kubernetes
     digest: 83385efc1300929cec5c70561369026d23a69beff4d7b06ea2d711b30eb94971
     name: testchart
@@ -74,7 +109,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-19T19:10:09.375470502Z"
+    created: "2020-12-19T19:49:07.025883135Z"
     description: A Helm chart for Kubernetes
     digest: 795bb9d06f04192eda8f0325b8cbd45c808efc701975b79724bff7a4908a094e
     name: testchart
@@ -82,4 +117,4 @@ entries:
     urls:
     - https://lsdcapital.github.io/helm-charts/testchart-0.1.0.tgz
     version: 0.1.0
-generated: "2020-12-19T19:10:09.372995815Z"
+generated: "2020-12-19T19:49:07.009898321Z"
