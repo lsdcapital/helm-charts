@@ -1,0 +1,124 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "prysm-validator.fullname" . }}
+  labels:
+    {{- include "prysm-validator.labels" . | nindent 4 }}
+    app: {{ template "prysm-validator.name" . }}
+spec:
+  selector:
+    matchLabels:
+    {{- include "prysm-validator.selectorLabels" . | nindent 6 }}
+  serviceName: {{ template "prysm-validator.fullname" . }}
+  replicas: 1
+  # updateStrategy:
+  #   rollingUpdate: null
+  template:
+    metadata:
+      labels:
+      {{- include "prysm-validator.selectorLabels" . | nindent 8 }}
+    spec:
+      initContainers:
+        - name: prysm-import
+          {{- if .Values.validator.debug.init }}
+          image: centos:8
+          command: ['sleep']
+          args: ['infinity']
+          {{- else }}
+          image: "{{ .Values.validator.deployment.image.repository }}:{{ .Values.validator.deployment.image.tag | default .Chart.AppVersion }}"
+          args:
+            - "accounts"
+            - "import"
+            - "--keys-dir=/keys/import"
+            - "--wallet-dir=/keys"
+            - "--wallet-password-file=/keys/import/walletpass"
+            - "--account-password-file=/keys/import/validatorpass"
+            - "--{{ .Values.validator.chain }}"
+            {{- if .Values.validator.acceptTermsOfUse }}
+            - "--accept-terms-of-use"
+            {{- end }}
+          {{- end }}
+          volumeMounts:
+            - name: keys
+              mountPath: "/keys"
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- if .Values.validator.debug.main }}
+          image: centos:8
+          command: ['sleep']
+          args: ['infinity']
+          {{- else }}
+          image: "{{ .Values.validator.deployment.image.repository }}:{{ .Values.validator.deployment.image.tag | default .Chart.AppVersion }}"
+          args:
+            - "--beacon-rpc-provider={{ .Values.validator.beacon }}"
+            - "--wallet-dir=/keys"
+            - "--wallet-password-file=/keys/import/walletpass"
+            - "--datadir={{ .Values.validator.deployment.dataDir }}"
+            - "--verbosity={{ .Values.validator.verbosity }}"
+            - "--log-file={{ .Values.validator.logfile }}"
+            - "--monitoring-host=0.0.0.0"
+            - "--monitoring-port={{ .Values.validator.ports.monitoring }}"
+            - "--{{ .Values.validator.chain }}"
+            {{- if .Values.validator.graffiti }}
+            - "--graffiti={{ .Values.validator.graffiti }}"
+            {{- end }}
+            {{- if .Values.validator.acceptTermsOfUse }}
+            - "--accept-terms-of-use"
+            {{- end }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.validator.deployment.image.pullPolicy }}
+          resources:
+          {{ toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: keys
+              mountPath: "/keys"
+            - name: data
+              mountPath: {{ .Values.validator.deployment.dataDir }}
+          # livenessProbe:
+          #   httpGet:
+          #     path: {{ .Values.validator.deployment.healthEndpoint }}
+          #     port: {{ .Values.validator.ports.metrics }}
+          # readinessProbe:
+          #   httpGet:
+          #     path: {{ .Values.validator.deployment.healthEndpoint }}
+          #     port: {{ .Values.validator.ports.metrics }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: {{ .Values.validator.ports.monitoring }}
+              protocol: TCP
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        {{- if .Values.storageClassName }}
+        storageClassName: {{ .Values.storageClassName }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.validator.persistentVolume.size }}
+    - metadata:
+        name: keys
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        {{- if .Values.storageClassName }}
+        storageClassName: {{ .Values.storageClassName }}
+        {{- end }}
+        resources:
+          requests:
+            storage: 1Gi
