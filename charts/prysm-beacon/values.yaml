@@ -1,0 +1,80 @@
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+beacon:
+  chain: "mainnet"  # mainnet | pyrmont
+  acceptTermsOfUse: false
+  web3HttpProvider: "CHANGEME"
+  p2pMaxPeers: 60
+  logfile: /data/beacon.log
+  verbosity: info
+  rpcHost: 0.0.0.0
+
+  image:
+    repository: "gcr.io/prysmaticlabs/prysm/beacon-chain"
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
+
+  deployment:
+    replicaCount: 1
+    podSecurityContext:
+      runAsUser: 101
+      runAsGroup: 101
+      fsGroup: 101
+    securityContext: {}
+      # capabilities:
+      #   drop:
+      #   - ALL
+      # readOnlyRootFilesystem: true
+      # runAsNonRoot: true
+      # runAsUser: 1000
+    dataDir: "/data"
+
+  persistentVolume:
+    size: 50Gi
+
+  # resources:
+  #   limits:
+  #     memory: 2.5Gi
+  #   requests:
+  #     memory: 2.5Gi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+  ingress:
+    enabled: true
+    type: gke
+    extip: ""
+
+  ports:
+    p2pTcp: 13000
+    p2pUdp: 12000
+    grpc: 4000
+    monitoring: 8080
+
+## Set storageClassName if you have no default defined
+#storageClassName: ""
+
+service:
+  type: ClusterIP
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+
+
+
+

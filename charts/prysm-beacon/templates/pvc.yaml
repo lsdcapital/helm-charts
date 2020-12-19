@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "prysm-beacon.fullname" . }}
+  labels:
+  {{- include "prysm-beacon.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  {{- if .Values.storageClassName }}
+  storageClassName: {{ .Values.storageClassName }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.beacon.persistentVolume.size }}

@@ -1,0 +1,31 @@
+{{- if .Values.beacon.ingress.enabled }}
+{{- if eq .Values.beacon.ingress.type "gke" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "prysm-beacon.fullname" . }}-tcp-lb
+spec:
+  selector:
+    app.kubernetes.io/name: {{ include "prysm-beacon.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - port: {{ .Values.beacon.ports.p2pTcp }}
+      protocol: TCP
+  type: LoadBalancer
+  loadBalancerIP: {{ .Values.beacon.ingress.extip }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "prysm-beacon.fullname" . }}-udp-lb
+spec:
+  selector:
+    app.kubernetes.io/name: {{ include "prysm-beacon.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - port: {{ .Values.beacon.ports.p2pUdp }}
+      protocol: UDP
+  type: LoadBalancer
+  loadBalancerIP: {{ .Values.beacon.ingress.extip }}
+{{- end }}
+{{- end }}
