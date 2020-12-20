@@ -3,14 +3,19 @@ nameOverride: ""
 fullnameOverride: ""
 
 beacon:
+  # -- Which chain to operate on (mainnet/pyrmont)
   chain: "mainnet" # mainnet | pyrmont
+  # -- Must accept terms of use https://github.com/prysmaticlabs/prysm/blob/master/TERMS_OF_SERVICE.md
   acceptTermsOfUse: false
-  web3HttpProvider: "CHANGEME"
+  # -- http url to eth1 node (Your own or 3rd party)
+  web3HttpProvider: ""
+  # -- Peer to peer max peers. Try increase if missing attestations
   p2pMaxPeers: 60
   logfile: /data/beacon.log
   verbosity: info
   rpcHost: 0.0.0.0
-  eth1HeaderReqLimit: {}
+  # -- (int) Eth1 header limit. If you are getting errors regarding request size
+  eth1HeaderReqLimit:
 
   image:
     repository: "gcr.io/prysmaticlabs/prysm/beacon-chain"
@@ -19,6 +24,7 @@ beacon:
     tag: ""
 
   deployment:
+    # -- Scaling the beacon above 1 is not tested
     replicaCount: 1
     podSecurityContext:
       runAsUser: 101
@@ -35,6 +41,7 @@ beacon:
     dataDir: "/data"
 
   persistentVolume:
+    # -- Persistent volume size for the beacon data
     size: 50Gi
 
   # resources:
@@ -43,16 +50,9 @@ beacon:
   #   requests:
   #     memory: 2.5Gi
 
-  autoscaling:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 100
-    targetCPUUtilizationPercentage: 80
-    # targetMemoryUtilizationPercentage: 80
-
   ingress:
     enabled: true
-    type: gke
+    # External IP needed to load balance the p2p connections
     extip: ""
 
   ports:

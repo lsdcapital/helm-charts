@@ -1,0 +1,20 @@
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+## Notes
+- Currently only tested on GKE
+- For a fully functioning beacon node, it is necessary to route the traffic from ports 13000/tcp and 12000/udp to the beacon pod. The current setup does, but we had to use the beacon.ingress.extip and manually create a static IP in GKE load balancer
