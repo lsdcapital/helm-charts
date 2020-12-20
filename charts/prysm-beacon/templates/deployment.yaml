@@ -5,9 +5,7 @@ metadata:
   labels:
     {{- include "prysm-beacon.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.beacon.autoscaling.enabled }}
   replicas: {{ .Values.beacon.deployment.replicaCount }}
-  {{- end }}
   strategy:
     type: Recreate
   selector:
@@ -75,4 +73,3 @@ spec:
           volumeMounts:
           - name: node-data
             mountPath: {{ .Values.beacon.deployment.dataDir }}
-
