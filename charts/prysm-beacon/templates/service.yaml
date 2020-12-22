@@ -1,27 +1,25 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "prysm-beacon.fullname" . }}
-  labels:
-    {{- include "prysm-beacon.labels" . | nindent 4 }}
+  name: { { include "prysm-beacon.fullname" . } }
+  labels: { { - include "prysm-beacon.labels" . | nindent 4 } }
 spec:
-  type: {{ .Values.service.type }}
+  type: { { .Values.service.type } }
   ports:
-    - port: {{ .Values.beacon.ports.grpc }}
-      targetPort: {{ .Values.beacon.ports.grpc }}
+    - port: { { .Values.beacon.ports.grpc } }
+      targetPort: { { .Values.beacon.ports.grpc } }
       protocol: TCP
       name: grpc
-    - port: {{ .Values.beacon.ports.p2pUdp }}
-      targetPort: {{ .Values.beacon.ports.p2pUdp }}
+    - port: { { .Values.beacon.ports.p2pUdp } }
+      targetPort: { { .Values.beacon.ports.p2pUdp } }
       protocol: UDP
       name: p2pudp
-    - port: {{ .Values.beacon.ports.p2pTcp }}
-      targetPort: {{ .Values.beacon.ports.p2pTcp }}
+    - port: { { .Values.beacon.ports.p2pTcp } }
+      targetPort: { { .Values.beacon.ports.p2pTcp } }
       protocol: TCP
       name: p2ptcp
-    - port: {{ .Values.beacon.ports.monitoring }}
-      targetPort: {{ .Values.beacon.ports.monitoring }}
+    - port: { { .Values.beacon.ports.monitoring } }
+      targetPort: { { .Values.beacon.ports.monitoring } }
       protocol: TCP
       name: monitoring
-  selector:
-    {{- include "prysm-beacon.selectorLabels" . | nindent 4 }}
+  selector: { { - include "prysm-beacon.selectorLabels" . | nindent 4 } }
