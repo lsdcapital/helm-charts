@@ -21,7 +21,7 @@ beacon:
     repository: "gcr.io/prysmaticlabs/prysm/beacon-chain"
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
+    tag: "stable"
 
   deployment:
     # -- Scaling the beacon above 1 is not tested
