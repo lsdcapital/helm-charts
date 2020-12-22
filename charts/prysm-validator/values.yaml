@@ -2,7 +2,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 validator:
-  chain: "mainnet"  # mainnet | pyrmont
+  chain: "mainnet" # mainnet | pyrmont
   acceptTermsOfUse: false
   graffiti: ""
   beacon: "prysm-beacon:4000"
@@ -17,7 +17,7 @@ validator:
       repository: "gcr.io/prysmaticlabs/prysm/validator"
       pullPolicy: IfNotPresent
       # Overrides the image tag whose default is the chart appVersion.
-      tag: ""
+      tag: "stable"
     dataDir: "/data"
 
   persistentVolume:
