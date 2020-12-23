@@ -1,0 +1,19 @@
+testnet=0
+listen=0
+server=1
+txindex=1
+disablewallet=0
+dbcache=1024
+maxorphantx=10
+maxmempool=256
+maxconnections=25
+maxuploadtarget=5000
+
+# Connection settings
+rest=1
+rpcauth=generateme:generateme
+rpcbind=0.0.0.0
+rpcport=8332
+rpcallowip=192.168.0.0/16
+zmqpubrawblock=tcp://0.0.0.0:28332
+zmqpubrawtx=tcp://0.0.0.0:28333

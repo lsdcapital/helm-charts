@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: {{ include "lnd-lit.fullname" . }}-config
+  labels:
+  {{- include "lnd-lit.labels" . | nindent 4 }}
+data:
+  admin.macaroon: |-
+    {{ .Files.Get "config/admin.macaroon" | b64enc }}
+  chainnotifier.macaroon: |-
+    {{ .Files.Get "config/chainnotifier.macaroon" | b64enc }}
+  invoices.macaroon: |-
+    {{ .Files.Get "config/invoices.macaroon" | b64enc }}
+  lit.conf: |-
+    {{ .Files.Get "config/lit.conf" | b64enc }}
+  readonly.macaroon: |-
+    {{ .Files.Get "config/readonly.macaroon" | b64enc }}
+  router.macaroon: |-
+    {{ .Files.Get "config/router.macaroon" | b64enc }}
+  signer.macaroon: |-
+    {{ .Files.Get "config/signer.macaroon" | b64enc }}
+  tls.cert: |-
+    {{ .Files.Get "config/tls.cert" | b64enc }}
+  tls.key: |-
+    {{ .Files.Get "config/tls.key" | b64enc }}
+  walletkit.macaroon: |-
+    {{ .Files.Get "config/walletkit.macaroon" | b64enc }}

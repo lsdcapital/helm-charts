@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: {{ include "bitcoind.fullname" . }}-config
+  labels:
+  {{- include "bitcoind.labels" . | nindent 4 }}
+data:
+  bitcoin.conf: |-
+    {{ .Files.Get "config/bitcoin.conf" | b64enc }}

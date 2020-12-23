@@ -1,0 +1,129 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "lnd-lit.fullname" . }}
+  labels:
+    {{- include "lnd-lit.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "lnd-lit.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "lnd-lit.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "lnd-lit.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          #command: ['sleep', '99999999']
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - "--uipassword={{ .Values.config.uipass }}"
+          volumeMounts:
+          - mountPath: /root
+            name: lnd-lit
+          - mountPath: /root/.lit/lit.conf
+            name: lit-conf
+            subPath: "lit.conf"
+          - mountPath: /root/.lit/admin.macaroon
+            name: admin-macaroon
+            subPath: "admin.macaroon"
+          - mountPath: /root/.lit/tls.cert
+            name: tls-cert
+            subPath: "tls.cert"
+          - mountPath: /root/.lit/tls.key
+            name: tls-key
+            subPath: "tls.key"
+          - mountPath: /root/.lit/readonly.macaroon
+            name: readonly-macaroon
+            subPath: "readonly.macaroon"
+          - mountPath: /root/.lit/chainnotifier.macaroon
+            name: chainnotifier-macaroon
+            subPath: "chainnotifier.macaroon"
+          - mountPath: /root/.lit/invoices.macaroon
+            name: invoices-macaroon
+            subPath: "invoices.macaroon"
+          - mountPath: /root/.lit/router.macaroon
+            name: router-macaroon
+            subPath: "router.macaroon"
+          - mountPath: /root/.lit/signer.macaroon
+            name: signer-macaroon
+            subPath: "signer.macaroon"
+          - mountPath: /root/.lit/walletkit.macaroon
+            name: walletkit-macaroon
+            subPath: "walletkit.macaroon"
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: lnd-lit
+          persistentVolumeClaim:
+            claimName: lnd-lit
+        - name: admin-macaroon
+          secret:
+            secretName: lnd-lit-config
+        - name: tls-cert
+          secret:
+            secretName: lnd-lit-config
+        - name: lit-conf
+          secret:
+            secretName: lnd-lit-config
+        - name: tls-key
+          secret:
+            secretName: lnd-lit-config
+        - name: chainnotifier-macaroon
+          secret:
+            secretName: lnd-lit-config
+        - name: invoices-macaroon
+          secret:
+            secretName: lnd-lit-config
+        - name: readonly-macaroon
+          secret:
+            secretName: lnd-lit-config
+        - name: router-macaroon
+          secret:
+            secretName: lnd-lit-config
+        - name: signer-macaroon
+          secret:
+            secretName: lnd-lit-config
+        - name: walletkit-macaroon
+          secret:
+            secretName: lnd-lit-config

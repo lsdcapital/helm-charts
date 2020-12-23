@@ -1,0 +1,20 @@
+remote.lnd.rpcserver=<externally-reachable-ip-address>:10009
+remote.lnd.macaroondir=/root/.lit/
+remote.lnd.tlscertpath=/.root/.lit/tls.cert
+httpslisten=0.0.0.0:443
+lit-dir=~/root/.lit
+
+# Loop
+loop.loopoutmaxparts=5
+
+# Pool
+pool.newnodesonly=true
+
+# Faraday
+faraday.min_monitored=48h
+
+# Faraday - bitcoin
+faraday.connect_bitcoin=true
+faraday.bitcoin.host=localhost
+faraday.bitcoin.user=testnetuser
+faraday.bitcoin.password=testnetpw

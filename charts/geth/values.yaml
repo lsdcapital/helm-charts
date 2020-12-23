@@ -1,0 +1,111 @@
+# Default values for geth.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+debug: false
+
+config:
+  datadir: "/data"
+  syncmode: "fast"
+  cache: "1024"
+  net: "main" # main, goerli, rinkeby, yolov1, ropsten
+  http:
+    enabled: true
+    addr: 0.0.0.0
+    port: 8545
+  ws:
+    enabled: true
+    addr: 0.0.0.0
+    port: 8546
+  persistence:
+    enabled: true
+    split:
+      enabled: true  # This will split the ancient directory to hdd and use faster storage for ssd
+      scSsd: ssd  # storageClass name for high speed
+      sizeSsd: 300Gi
+      scHdd: standard  # storageClass name for normal  (will put ancientdir here)
+      sizeHdd: 300Gi
+    ## Set storageClassName if you have no default defined. For geth you need an fast (ssd) disk to keep up
+    #storageClassName: ""
+    size: 500Gi
+
+replicaCount: 1
+
+image:
+  repository: ethereum/client-go
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  type: gke
+  annotations:
+    # kubernetes.io/ingress.class: gce
+    # kubernetes.io/tls-acme: "true"
+  allowrange: {}
+  extip: 34.90.156.91  # Set this to the -nat external IP if its not detected correctly
+  tcp:
+    port: 30303
+    nodePort: 30303
+  udp:
+    port: 30303
+    nodePort: 30303
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    #cpu: 100m
+    memory: 4Gi
+  requests:
+    #cpu: 100m
+    memory: 4Gi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

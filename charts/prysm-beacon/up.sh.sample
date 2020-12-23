@@ -1,0 +1,25 @@
+#!/bin/bash
+
+CLUSTER=$(kubectl config current-context |cut -f2 -d'_')
+NS=$(kubectl ns -c)
+
+echo "Cluster: $CLUSTER"
+echo "Namespace: $NS"
+echo ""
+
+echo -n "Component (beacon (1) / validator / slasher / monitoring): "
+read COMPONENT
+if [ "$COMPONENT" == "beacon" ] || [ "$COMPONENT" -eq 1 ]
+then
+  if [ "$CLUSTER" == "%%REPLACECLUSTER%%" ] && [ "$NS" == "%%REPLACENS%%" ]
+  then
+    helm upgrade -i prysm-beacon ./beacon \
+    --set beacon.acceptTermsOfUse=true \
+    --set beacon.ingress.extip=%%EXTIP%% \
+    --set beacon.web3HttpProvider=%%WEB3%% \
+    --set beacon.FallbackWeb3Provider=%%WEB3FAIL%% \
+    --set storageClassName=%%SC%% \
+    --set beacon.persistentVolume.size=%%SIZE%% \
+    $@
+  fi
+fi
