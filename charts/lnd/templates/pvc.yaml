@@ -1,0 +1,17 @@
+{{- if .Values.config.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "lnd.fullname" . }}
+  labels:
+  {{- include "lnd.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  {{- if .Values.config.persistence.storageClassName }}
+  storageClassName: {{ .Values.config.persistence.storageClassName }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.config.persistence.size }}
+{{- end }}

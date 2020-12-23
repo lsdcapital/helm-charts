@@ -1,0 +1,5 @@
+up.sh
+config/lit.conf
+config/*.macaroon
+config/tls.cert
+config/tls.key

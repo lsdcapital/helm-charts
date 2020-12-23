@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "lnd.fullname" . }}
+  labels:
+    {{- include "lnd.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "lnd.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "lnd.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "lnd.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ include "lnd.fullname" . }}
+      - name: configfile
+        configMap:
+          name: {{ include "lnd.fullname" . }}
+      initContainers:
+      - name: lnd-init
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        command:
+        - "/bin/bash"
+        - "-c"
+        - "until test -f /data/data/chain/bitcoin/mainnet/wallet.db; do echo Waiting for wallet creation. Exec into this pod and run lncli --lnddir=/data --datadir=/data/data --configfile=/etc/lnd/lnd.conf create; sleep 10; done"
+        volumeMounts:
+          - mountPath: /data
+            name: lnd
+          - mountPath: /etc/lnd
+            name: lnd-config
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - "--lnddir=/data"
+            - "--datadir=/data/data"
+            - "--configfile=/etc/lnd/lnd.conf"
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                - /bin/sh
+                - -c
+                - "until lncli --lnddir=/data unlock --stdin < /data/.walletpass; do echo Waiting for wallet; sleep 5; done"
+          volumeMounts:
+          - mountPath: /data
+            name: lnd
+          - mountPath: /etc/lnd
+            name: lnd-config
+          - mountPath: /data/.walletpass
+            name: lnd-walletpass
+            subPath: ".walletpass"
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: lnd
+          persistentVolumeClaim:
+            claimName: lnd
+        - configMap:
+            defaultMode: 420
+            name: lnd-config
+          name: lnd-config
+        - configMap:
+            name: lnd-walletpass
+          name: lnd-walletpass

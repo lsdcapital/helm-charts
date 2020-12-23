@@ -1,0 +1,47 @@
+{{- if .Values.config.persistence.enabled }}
+{{- if .Values.config.persistence.split.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "geth.fullname" . }}
+  labels:
+  {{- include "geth.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.config.persistence.split.scSsd }}
+  resources:
+    requests:
+      storage: {{ .Values.config.persistence.split.sizeSsd }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "geth.fullname" . }}-ancient
+  labels:
+  {{- include "geth.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.config.persistence.split.scHdd }}
+  resources:
+    requests:
+      storage: {{ .Values.config.persistence.split.sizeHdd }}
+{{- else -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "geth.fullname" . }}
+  labels:
+  {{- include "geth.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  {{- if .Values.config.persistence.storageClassName }}
+  storageClassName: {{ .Values.config.persistence.storageClassName }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.config.persistence.size }}
+{{- end }}
+{{- end }}

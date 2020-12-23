@@ -1,0 +1,31 @@
+{{- if .Values.ingress.enabled -}}
+{{- if eq .Values.ingress.type "gke" -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "geth.fullname" . }}-tcp-lb
+spec:
+  selector:
+    app.kubernetes.io/name: {{ include "geth.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - port: {{ .Values.ingress.tcp.port }}
+      protocol: TCP
+  type: LoadBalancer
+  loadBalancerIP: {{ .Values.ingress.extip }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "geth.fullname" . }}-udp-lb
+spec:
+  selector:
+    app.kubernetes.io/name: {{ include "geth.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - port: {{ .Values.ingress.udp.port }}
+      protocol: UDP
+  type: LoadBalancer
+  loadBalancerIP: {{ .Values.ingress.extip }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "geth.fullname" . }}
+  labels:
+    {{- include "geth.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "geth.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "geth.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "geth.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ include "geth.fullname" . }}
+      {{- if .Values.config.persistence.split.enabled }}
+      - name: ancient
+        persistentVolumeClaim:
+          claimName: {{ include "geth.fullname" . }}-ancient
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.debug }}
+          image: centos:8
+          command: ['sleep']
+          args: ['infinity']
+          {{- else }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command:
+            - "geth"
+          args:
+            - "--datadir={{ .Values.config.datadir }}"
+            - "--ethash.dagdir={{ .Values.config.datadir }}/.ethhash"
+            - "--syncmode={{ .Values.config.syncmode }}"
+            - "--nousb"
+            - "--cache={{ .Values.config.cache }}"
+            {{- if ne .Values.config.net "main" }}
+            - "--{{ .Values.config.net }}"
+            {{- end }}
+            {{- if .Values.config.http.enabled }}
+            - "--http"
+            - "--http.addr={{ .Values.config.http.addr }}"
+            - "--http.corsdomain=*"
+            - "--http.vhosts=*"
+            {{- end }}
+            {{- if .Values.config.ws.enabled }}
+            - "--ws"
+            - "--ws.addr={{ .Values.config.http.addr }}"
+            - "--ws.origins=*"
+            {{- end }}
+            {{- if .Values.ingress.extip }}
+            - "--nat=extip:{{ .Values.ingress.extip }}"
+            {{- end }}
+            {{- if .Values.config.persistence.split.enabled }}
+            - "--datadir.ancient={{ .Values.config.datadir }}/geth/chaindata/ancient"
+            {{- end }}
+            {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.config.http.port }}
+              protocol: TCP
+            - name: ws
+              containerPort: {{ .Values.config.ws.port }}
+              protocol: TCP
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.config.datadir }}
+          {{- if .Values.config.persistence.split.enabled }}
+            - name: ancient
+              mountPath: {{ .Values.config.datadir }}/geth/chaindata/ancient
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
