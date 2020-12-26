@@ -4,6 +4,9 @@
 
 replicaCount: 1
 
+config:
+  rpcauth: ""
+
 image:
   repository: nicolasdorier/nbxplorer
   pullPolicy: IfNotPresent
@@ -19,6 +22,12 @@ persistence:
   ## Set storageClassName if you have no default defined. For geth you need an fast (ssd) disk to keep up
   #storageClassName: ""
   size: 1Gi
+
+rabbitmq:
+  auth:
+    username: "rabbituser"
+    password: ""
+    erlangCookie: ""
 
 serviceAccount:
   # Specifies whether a service account should be created

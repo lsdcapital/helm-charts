@@ -34,6 +34,17 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          args:
+            - "--datadir=/datadir"
+            - "--bind=0.0.0.0:32838"
+            - "--network=mainnet"          
+            - "--chains=btc"
+            - "--btcrpcurl=http://bitcoind.bitcoin.svc.cluster.local:8332/"
+            - "--btcnodeendpoint=bitcoind.bitcoin.svc.cluster.local:8333"            
+            - "--btcrpcauth={{ .Values.config.rpcauth }}"
+            - "--rmquser=rabbituser"
+            - "--rmqpass=test123"
+            - "--rmqhost=nbxplorer-rabbitmq"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
           - mountPath: /datadir
