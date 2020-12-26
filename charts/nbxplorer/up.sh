@@ -1,2 +1,2 @@
-    helm upgrade -i nbxplorer . -n btcpay-tmp --create-namespace \
+    helm upgrade -i nbxplorer . -n playpen --create-namespace \
     $@
