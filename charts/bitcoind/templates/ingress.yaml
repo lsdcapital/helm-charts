@@ -18,13 +18,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "geth.fullname" . }}-ws-lb
+  name: {{ include "bitcoind.fullname" . }}-ws-lb
   labels:
-  {{- include "geth.labels" . | nindent 4 }}
+  {{- include "bitcoind.labels" . | nindent 4 }}
 spec:
   type: LoadBalancer
   selector:
-    app.kubernetes.io/name: {{ include "geth.name" . }}
+    app.kubernetes.io/name: {{ include "bitcoind.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
   ports:
   - protocol: TCP
@@ -33,7 +33,7 @@ spec:
 
 {{- else -}}
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "geth.fullname" . -}}
+{{- $fullName := include "bitcoind.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
@@ -44,7 +44,7 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "geth.labels" . | nindent 4 }}
+    {{- include "bitcoind.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
