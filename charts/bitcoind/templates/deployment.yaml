@@ -41,10 +41,26 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
-            - "-conf=/etc/bitcoin/bitcoin.conf"
             {{- if not .Values.config.printtoconsole }}
             - "-printtoconsole=0"
             {{- end }}
+            - "-testnet=0"
+            - "-listen=0"
+            - "-server=1"
+            - "-txindex=1"
+            - "-disablewallet=0"
+            - "-dbcache=1024"
+            - "-maxorphantx=10"
+            - "-maxmempool=256"
+            - "-maxconnections=20"
+            - "-maxuploadtarget=5000"
+            - "-rest=1"
+            - "-rpcauth={{ .Values.config.rpcauth }}"
+            - "-rpcbind=0.0.0.0"
+            - "-rpcport=8332"
+            - "-rpcallowip=192.168.0.0/16"
+            - "-zmqpubrawblock=tcp://0.0.0.0:28332"
+            - "-zmqpubrawtx=tcp://0.0.0.0:28333"
             {{- end }}
           env:
           - name: BITCOIN_DATA
@@ -52,8 +68,6 @@ spec:
           volumeMounts:
           - mountPath: /data
             name: bitcoind
-          - mountPath: /etc/bitcoin
-            name: bitcoin-conf
           # livenessProbe:
           #   httpGet:
           #     path: /
@@ -80,6 +94,4 @@ spec:
       - name: bitcoind
         persistentVolumeClaim:
           claimName: bitcoind
-      - name: bitcoin-conf
-        secret:
-          secretName: bitcoind-config
+
