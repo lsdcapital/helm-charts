@@ -105,8 +105,8 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        {{- if .Values.storageClassName }}
-        storageClassName: {{ .Values.storageClassName }}
+        {{- if .Values.validator.persistentVolume.storageClassName }}
+        storageClassName: {{ .Values.validator.persistentVolume.storageClassName }}
         {{- end }}
         resources:
           requests:
@@ -116,8 +116,8 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        {{- if .Values.storageClassName }}
-        storageClassName: {{ .Values.storageClassName }}
+        {{- if .Values.validator.persistentVolume.storageClassName }}
+        storageClassName: {{ .Values.validator.persistentVolume.storageClassName }}
         {{- end }}
         resources:
           requests:

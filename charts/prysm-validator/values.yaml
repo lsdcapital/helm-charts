@@ -21,6 +21,7 @@ validator:
     dataDir: "/data"
 
   persistentVolume:
+    storageClassName: standard
     size: 1Gi
 
   resources:
