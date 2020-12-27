@@ -2,13 +2,16 @@ nameOverride: ""
 fullnameOverride: ""
 
 validator:
-  chain: "mainnet" # mainnet | pyrmont
+  # -- Chain (mainnet | pyrmont)
+  chain: "mainnet"
+  # -- Terms of use must be set to true. [Terms of service](https://github.com/prysmaticlabs/prysm/blob/master/TERMS_OF_SERVICE.md)
   acceptTermsOfUse: false
   graffiti: ""
   beacon: "prysm-beacon:4000"
   logfile: /data/validator.log
   verbosity: info
   debug:
+    # -- Init container (prysm-import) debug
     init: false
     main: false
 
