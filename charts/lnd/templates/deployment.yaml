@@ -29,25 +29,16 @@ spec:
       serviceAccountName: {{ include "lnd.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: {{ include "lnd.fullname" . }}
-      - name: configfile
-        configMap:
-          name: {{ include "lnd.fullname" . }}
-      initContainers:
-      - name: lnd-init
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-        command:
-        - "/bin/bash"
-        - "-c"
-        - "until test -f /data/data/chain/bitcoin/mainnet/wallet.db; do echo Waiting for wallet creation. Exec into this pod and run lncli --lnddir=/data --datadir=/data/data --configfile=/etc/lnd/lnd.conf create; sleep 10; done"
-        volumeMounts:
-          - mountPath: /data
-            name: lnd
-          - mountPath: /etc/lnd
-            name: lnd-config
+      # initContainers:
+      # - name: lnd-init
+      #   image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+      #   command:
+      #   - "/bin/bash"
+      #   - "-c"
+      #   - "until test -f /data/data/chain/bitcoin/mainnet/wallet.db; do echo Waiting for wallet creation. Exec into this pod and run lncli --lnddir=/data --datadir=/data/data create; sleep 10; done"
+      #   volumeMounts:
+      #     - mountPath: /data
+      #       name: lnd
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -57,22 +48,43 @@ spec:
           args:
             - "--lnddir=/data"
             - "--datadir=/data/data"
-            - "--configfile=/etc/lnd/lnd.conf"
-          lifecycle:
-            postStart:
-              exec:
-                command:
-                - /bin/sh
-                - -c
-                - "until lncli --lnddir=/data unlock --stdin < /data/.walletpass; do echo Waiting for wallet; sleep 5; done"
+            - "--alias=lsdcapital"
+            - "--debuglevel=info"
+            - "--maxpendingchannels=4"
+            - "--stagger-initial-reconnect"
+            - "--accept-keysend"
+            - "--allow-circular-route"
+            - "--minchansize=100000"
+            - "--listen=0.0.0.0:9735"
+            - "--rpclisten=0.0.0.0:10009"
+            - "--restlisten=127.0.0.1:8080"
+            - "--externalip={{ .Values.config.externalIp }}"
+            - "--tlsextraip=lnd"
+            - "--tlsextradomain=lnd"
+            - "--tlsextradomain=lnd-loadbalancer"
+            - "--bitcoin.active"
+            - "--bitcoin.node=bitcoind"
+            - "--bitcoin.mainnet"
+            - "--bitcoin.defaultchanconfs=2"
+            - "--bitcoin.minhtlc=1"
+            - "--bitcoind.rpcuser={{ .Values.bitcoind.rpcuser }}"
+            - "--bitcoind.rpcpass={{ .Values.bitcoind.rpcpass }}"
+            - "--bitcoind.rpchost=bitcoind.bitcoin.svc.cluster.local"
+            - "--bitcoind.zmqpubrawblock=tcp://bitcoind.bitcoin.svc.cluster.local:28332"
+            - "--bitcoind.zmqpubrawtx=tcp://bitcoind.bitcoin.svc.cluster.local:28333"
+            - "--protocol.wumbo-channels"
+            - "--wtclient.active"
+            - "--db.bolt.auto-compact"
+          # lifecycle:
+          #   postStart:
+          #     exec:
+          #       command:
+          #       - /bin/sh
+          #       - -c
+          #       - "until lncli --lnddir=/data unlock --stdin < /data/.walletpass; do echo Waiting for wallet; sleep 5; done"
           volumeMounts:
           - mountPath: /data
             name: lnd
-          - mountPath: /etc/lnd
-            name: lnd-config
-          - mountPath: /data/.walletpass
-            name: lnd-walletpass
-            subPath: ".walletpass"
           # livenessProbe:
           #   httpGet:
           #     path: /
@@ -99,10 +111,3 @@ spec:
         - name: lnd
           persistentVolumeClaim:
             claimName: lnd
-        - configMap:
-            defaultMode: 420
-            name: lnd-config
-          name: lnd-config
-        - configMap:
-            name: lnd-walletpass
-          name: lnd-walletpass

@@ -5,6 +5,7 @@
 config:
   walletpass: changeme
   lbport: 9735
+  externalIp:
   persistence:
     enabled: true
     ## Set storageClassName if you have no default defined
@@ -13,8 +14,12 @@ config:
 
 replicaCount: 1
 
+bitcoind:
+  rpcuser: ""
+  rpcpass: ""
+
 image:
-  repository: guggero/lnd
+  repository: lightninglabs/lnd
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -34,10 +39,12 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  {}
   #fsGroup: 1000
 
-securityContext: {}
+securityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -53,7 +60,8 @@ service:
 ingress:
   enabled: true
   type: gke
-  annotations: {}
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
@@ -64,7 +72,8 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following

@@ -1,0 +1,46 @@
+root@btcpayserver-bb4df8859-c22nf:/app# ./BTCPayServer --help
+BTCPay
+Open source, self-hosted payment processor.
+
+Usage: BTCPay [options]
+
+Options:
+  -? | -h | --help            Show help information
+  -n | --network              Set the network among (mainnet,testnet,regtest) (default: mainnet)
+  --testnet | -testnet        Use testnet (deprecated, use --network instead)
+  --regtest | -regtest        Use regtest (deprecated, use --network instead)
+  --allow-admin-registration  For debug only, will show a checkbox when a new user register to add himself as admin. (default: false)
+  --chains | -c               Chains to support as a comma separated (default: btc; available: btc)
+  --postgres                  Connection string to a PostgreSQL database
+  --mysql                     Connection string to a MySQL database
+  --sqlitefile                File name to an SQLite database file inside the data directory
+  --externalservices          Links added to external services inside Server Settings / Services under the format service1:path2;service2:path2.(default: empty)
+  --bundlejscss               Bundle JavaScript and CSS files for better performance (default: true)
+  --rootpath                  The root path in the URL to access BTCPay (default: /)
+  --sshconnection             SSH server to manage BTCPay under the form user@server:port (default: root@externalhost or empty)
+  --sshpassword               SSH password to manage BTCPay (default: empty)
+  --sshkeyfile                SSH private key file to manage BTCPay (default: empty)
+  --sshkeyfilepassword        Password of the SSH keyfile (default: empty)
+  --sshauthorizedkeys         Path to a authorized_keys file that BTCPayServer can modify from the website (default: empty)
+  --sshtrustedfingerprints    SSH Host public key fingerprint or sha256 (default: empty, it will allow untrusted connections)
+  --torrcfile                 Path to torrc file containing hidden services directories (default: empty)
+  --socksendpoint             Socks endpoint to connect to onion urls (default: empty)
+  --updateurl                 Url used for once a day new release version check. Check performed only if value is not empty (default: empty)
+  --debuglog                  A rolling log file for debug messages.
+  --debugloglevel             The severity you log (default:information)
+  --disable-registration      Disables new user registrations (default:true)
+  --plugin-remote             Which github repository to fetch the available plugins list (default:btcpayserver/btcpayserver-plugins)
+  --recommended-plugins       Plugins which would be marked as recommended to be installed. Separated by newline or space
+  --xforwardedproto           If specified, set X-Forwarded-Proto to the specified value, this may be useful if your reverse proxy handle https but is not configured to add X-Forwarded-Proto (example: --xforwardedproto https)
+  --btcexplorerurl            URL of the NBXplorer for BTC (default: http://127.0.0.1:24444/)
+  --btcexplorercookiefile     Path to the cookie file (default: /root/.nbxplorer/Main/.cookie)
+  --btclightning              Easy configuration of lightning for the server administrator: Must be a UNIX socket of c-lightning (lightning-rpc) or URL to a charge server (default: empty)
+  --btcexternallndgrpc        The LND gRPC configuration BTCPay will expose to easily connect to the internal lnd wallet from an external wallet (default: empty)
+  --btcexternallndrest        The LND REST configuration BTCPay will expose to easily connect to the internal lnd wallet from an external wallet (default: empty)
+  --btcexternalrtl            The Ride the Lightning configuration so BTCPay will expose to easily open it in server settings (default: empty)
+  --btcexternalspark          Show spark information in Server settings / Server. The connection string to spark server (default: empty)
+  --btcexternalcharge         Show lightning charge information in Server settings/Server. The connection string to charge server (default: empty)
+  -c | --conf                 The configuration file
+  -p | --port                 The port on which to listen
+  -b | --bind                 The address on which to bind
+  -d | --datadir              The data directory

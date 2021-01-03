@@ -8,6 +8,8 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  strategy:
+    type: Recreate  
   selector:
     matchLabels:
       {{- include "btcpayserver.selectorLabels" . | nindent 6 }}
@@ -32,19 +34,66 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          # command: ['sleep']
+          # args:
+          #   - "--debuglog=/data/debug.log"
+          env:
+          - name: BTCPAY_POSTGRES
+            value: "User ID=btcpay;Password={{ .Values.postgresql.postgresqlPassword }};Host=btcpayserver-postgresql;Port=5432;Database=btcpay"          
+          - name: NBITCOIN_NETWORK
+            value: "mainnet"
+          - name: BTCPAY_BIND
+            value: "0.0.0.0:{{ .Values.service.port }}"
+          - name: BTCPAY_DATADIR
+            value: "/data"
+          - name: BTCPAY_ROOTPATH
+            value: "/"
+          - name: BTCPAY_DEBUGLOG
+            value: "btcpay.log"      
+          - name: BTCPAY_DOCKERDEPLOYMENT
+            value: "true"
+          - name: BTCPAY_CHAINS
+            value: "btc"
+          - name: BTCPAY_BTCEXPLORERURL
+            value: "http://nbxplorer:32838"
+          - name: BTCPAY_HOST
+            value: "btcpay.lsd.capital"
+          - name: VIRTUAL_HOST
+            value: "btcpay.lsd.capital"
+          - name: VIRTUAL_HOST_NAME
+            value: "btcpay"
+          - name: SSL_POLICY
+            value: "Mozilla-Modern"
+          - name: HIDDENSERVICE_NAME
+            value: "BTCPayServer"
+          - name: HIDDENSERVICE_REVERSEPROXY
+            value: nginx
+          - name: REVERSEPROXY_HTTPS_PORT
+            value: "443"
+          - name: BTCPAY_PROTOCOL
+            value: "https"
+          - name: REVERSEPROXY_HTTP_PORT
+            value: "80"
+            #- "--btcexternallndgrpc"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+          - mountPath: /data
+            name: btcpayserver
+          # - mountPath: /lndhub/admin.macaroon
+          #   name: admin-macaroon
+          #   subPath: "admin.macaroon"
           ports:
-            - name: http
-              containerPort: 80
+            - name: btcpayserver
+              containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -59,3 +108,16 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: btcpayserver
+          persistentVolumeClaim:
+            claimName: btcpayserver
+        # - name: admin-macaroon
+        #   secret:
+        #     secretName: btcpayserver-config
+        # - name: tls-cert
+        #   secret:
+        #     secretName: btcpayserver-config
+        - name: cookie
+          secret:
+            secretName: btcpayserver-config            
