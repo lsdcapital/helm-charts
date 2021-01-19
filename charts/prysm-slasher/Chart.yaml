@@ -20,12 +20,11 @@ version: 1.0.0
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
-appVersion: v1.0.5
+appVersion: v1.1.0
 
 maintainers:
-- email: stefan@lsdopen.io
-  name: Stefan Lesicnik
-
+  - email: stefan@lsdopen.io
+    name: Stefan Lesicnik
 # Chart adapted from
 # https://github.com/eth2-spectrum/prysm-helm
 # @jensbarthel
