@@ -56,6 +56,7 @@ spec:
             - "--datadir={{ .Values.validator.deployment.dataDir }}"
             - "--verbosity={{ .Values.validator.verbosity }}"
             - "--log-file={{ .Values.validator.logfile }}"
+            - "--attest-timely"
             - "--monitoring-host=0.0.0.0"
             - "--monitoring-port={{ .Values.validator.ports.monitoring }}"
             - "--{{ .Values.validator.chain }}"
