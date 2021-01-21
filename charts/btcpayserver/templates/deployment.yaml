@@ -62,19 +62,8 @@ spec:
             value: "btcpay.lsd.capital"
           - name: VIRTUAL_HOST_NAME
             value: "btcpay"
-          - name: SSL_POLICY
-            value: "Mozilla-Modern"
-          - name: HIDDENSERVICE_NAME
-            value: "BTCPayServer"
-          - name: HIDDENSERVICE_REVERSEPROXY
-            value: nginx
-          - name: REVERSEPROXY_HTTPS_PORT
-            value: "443"
           - name: BTCPAY_PROTOCOL
             value: "https"
-          - name: REVERSEPROXY_HTTP_PORT
-            value: "80"
-            #- "--btcexternallndgrpc"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
           - mountPath: /data
