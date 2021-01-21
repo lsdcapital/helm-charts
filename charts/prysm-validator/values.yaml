@@ -35,5 +35,7 @@ validator:
   ports:
     monitoring: 8081
 
+  nodeSelector: ""
+
 service:
   type: ClusterIP

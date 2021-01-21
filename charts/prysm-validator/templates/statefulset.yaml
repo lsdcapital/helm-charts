@@ -88,9 +88,9 @@ spec:
           ports:
             - containerPort: {{ .Values.validator.ports.monitoring }}
               protocol: TCP
-      {{- with .Values.nodeSelector }}
+      {{- if .Values.validator.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | nindent 8 }}
+        {{ .Values.validator.nodeSelector }}
       {{- end }}
       {{- with .Values.affinity }}
       affinity:
