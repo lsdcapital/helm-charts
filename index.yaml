@@ -3,9 +3,9 @@ entries:
   bitcoind:
   - apiVersion: v2
     appVersion: 0.20.1
-    created: "2021-01-21T19:35:46.11154923Z"
+    created: "2021-01-21T19:45:42.636847057Z"
     description: A Helm chart for Bitcoindd
-    digest: 807e2c5ab27c4e34b0134cb27889e030a179f206e9981fa142b9290e5073c5a5
+    digest: 4e12af69b1715554440a2e366ac66736990b268cde9b0427668bd9a17357ae37
     name: bitcoind
     type: application
     urls:
@@ -13,7 +13,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: 0.20.1
-    created: "2021-01-21T19:35:46.110815229Z"
+    created: "2021-01-21T19:45:42.636110753Z"
     description: A Helm chart for Bitcoindd
     digest: 82356fdbedccf2fa894a61faf1ea8b4db3bff63a8a0e35fdfb5d0713753ae381
     name: bitcoind
@@ -23,7 +23,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 0.20.1
-    created: "2021-01-21T19:35:46.110001527Z"
+    created: "2021-01-21T19:45:42.635340649Z"
     description: A Helm chart for Bitcoindd
     digest: 0a3c427473d881903df0e1ef8656926af42663deab0ddc38878a1027a3f97512
     name: bitcoind
@@ -33,7 +33,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 0.20.1
-    created: "2021-01-21T19:35:46.108923826Z"
+    created: "2021-01-21T19:45:42.634538645Z"
     description: A Helm chart for Kubernetes
     digest: d4f98d75386988f1ab68a5aa2f2ec26665e123fc969f6803012c5253d3309d48
     name: bitcoind
@@ -44,13 +44,13 @@ entries:
   btcpayserver:
   - apiVersion: v2
     appVersion: 1.0.6.7
-    created: "2021-01-21T19:35:46.122401745Z"
+    created: "2021-01-21T19:45:42.648478315Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 10.2.0
     description: A Helm chart for BTCPayServer
-    digest: 363183815033f296f364eb4219d960d2c6142a844696b6ea8c2446289cab3964
+    digest: 73b664f50c4fd10fb622ce25d4d6313482ec2608fe3e300c9d8cbce51bdfc216
     name: btcpayserver
     type: application
     urls:
@@ -58,7 +58,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.0.6.4
-    created: "2021-01-21T19:35:46.116782837Z"
+    created: "2021-01-21T19:45:42.642499185Z"
     dependencies:
     - name: postgresql
       repository: https://charts.bitnami.com/bitnami
@@ -73,9 +73,9 @@ entries:
   geth:
   - apiVersion: v2
     appVersion: v1.9.25
-    created: "2021-01-21T19:35:46.123848647Z"
+    created: "2021-01-21T19:45:42.649304919Z"
     description: A Helm chart for Etheruem Go Client
-    digest: eafee7c21cfd47defe39dcd28592c62effd94bde68d025d8fd077ab3c3ad39ca
+    digest: bf715ba77ce210639cbf9f88b5d138676238eacce8986b60a91c4c2b6f1b5bf6
     maintainers:
     - email: stefan@lsdopen.io
       name: Stefan Lesicnik
@@ -87,9 +87,9 @@ entries:
   lnd:
   - apiVersion: v2
     appVersion: v0.12.0-beta.rc2
-    created: "2021-01-21T19:35:46.125110548Z"
+    created: "2021-01-21T19:45:42.650359024Z"
     description: A Helm chart for Lightning Labs LND
-    digest: 1d0c5df781574d61d2907899247549242db4253f0a01c7a6002685bdd89141d7
+    digest: 4de00e49bd64c05f75d11df35968e89272120c7f69aa73d7957d472f229ea52f
     name: lnd
     type: application
     urls:
@@ -98,9 +98,9 @@ entries:
   lnd-lit:
   - apiVersion: v2
     appVersion: v0.3.1-alpha
-    created: "2021-01-21T19:35:46.12600585Z"
+    created: "2021-01-21T19:45:42.651028927Z"
     description: A Helm chart for LND LIT (https://github.com/lightninglabs/lightning-terminal)
-    digest: 49ac0143d6f7975c1707f97e4ac1a919f6a76e5d86321fe46cfc95051a7401f9
+    digest: b13b368d65952c5951bd15c70b15b8b088c1dbfbd7a5051d01369ece54da5577
     name: lnd-lit
     type: application
     urls:
@@ -109,7 +109,21 @@ entries:
   nbxplorer:
   - apiVersion: v2
     appVersion: 2.1.47
-    created: "2021-01-21T19:35:46.130983657Z"
+    created: "2021-01-21T19:45:42.660303273Z"
+    dependencies:
+    - name: rabbitmq
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.6.1
+    description: A Helm chart for Kubernetes
+    digest: 5aa755d3e9d47f471ba66d14719a0f12839ff8772981b36d6e0fb07dc30f9580
+    name: nbxplorer
+    type: application
+    urls:
+    - https://lsdcapital.github.io/helm-charts/nbxplorer-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 2.1.47
+    created: "2021-01-21T19:45:42.655745151Z"
     dependencies:
     - name: rabbitmq
       repository: https://charts.bitnami.com/bitnami
@@ -124,9 +138,9 @@ entries:
   prysm-beacon:
   - apiVersion: v2
     appVersion: v1.1.0
-    created: "2021-01-21T19:35:46.133995361Z"
+    created: "2021-01-21T19:45:42.664316693Z"
     description: Eth2 Beacon Chain Node by Prysmatic Labs
-    digest: 5abc68c29ff89bb784c8b9baa8fda881f1c9fbeb0ae580bf28da786fcfa68f14
+    digest: 753d6bce754a7c63c9bd292b24bc66b1d901cdadc031f3886ec931505d01f94f
     maintainers:
     - email: stefan@lsdopen.io
       name: Stefan Lesicnik
@@ -139,7 +153,7 @@ entries:
     version: 1.0.4
   - apiVersion: v2
     appVersion: v1.1.0
-    created: "2021-01-21T19:35:46.13334636Z"
+    created: "2021-01-21T19:45:42.663490189Z"
     description: Eth2 Beacon Chain Node by Prysmatic Labs
     digest: 13e224b8d3f6c4888ab687db3e134d07a4e3550072d70511c9a436adbb32b54b
     maintainers:
@@ -154,7 +168,7 @@ entries:
     version: 1.0.3
   - apiVersion: v2
     appVersion: v1.0.5
-    created: "2021-01-21T19:35:46.132731459Z"
+    created: "2021-01-21T19:45:42.662631885Z"
     description: Eth2 Beacon Chain Node by Prysmatic Labs
     digest: bed46f2bdf1a1c9d709e4725731600484a161e66842855bb8b12c9a26afc1ee6
     maintainers:
@@ -169,7 +183,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: v1.0.5
-    created: "2021-01-21T19:35:46.132144958Z"
+    created: "2021-01-21T19:45:42.661820081Z"
     description: Eth2 Beacon Chain Node by Prysmatic Labs
     digest: 6f2eb6171ff9282e189775ed96a639757698b87ef529b4dfe66b03c4e6bfbbba
     maintainers:
@@ -182,7 +196,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: v1.0.4
-    created: "2021-01-21T19:35:46.131567758Z"
+    created: "2021-01-21T19:45:42.660876076Z"
     description: Eth2 Beacon Chain Node by Prysmatic Labs
     digest: c6b9530a57a30031ed78e2e3d5f40fa7774c17d41c9d629251ce8616c84f27ed
     maintainers:
@@ -196,7 +210,7 @@ entries:
   prysm-monitoring:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-01-21T19:35:46.146488378Z"
+    created: "2021-01-21T19:45:42.678401164Z"
     dependencies:
     - name: prometheus
       repository: https://prometheus-community.github.io/helm-charts
@@ -208,7 +222,7 @@ entries:
       repository: https://grafana.github.io/helm-charts
       version: 6.1.10
     description: Monitor Prsym ETH2 with promoethues & grafana
-    digest: 5d62865cee9ff772b69633cc65bc2152eb3bebfc51e02ac74fe9f99f7c1d695e
+    digest: aa0dd23f22f7cf73f1e9a2bc2533454f5f1198326f364646c715e1845e959244
     name: prysm-monitoring
     type: application
     urls:
@@ -217,9 +231,9 @@ entries:
   prysm-slasher:
   - apiVersion: v2
     appVersion: v1.1.0
-    created: "2021-01-21T19:35:46.146902279Z"
+    created: "2021-01-21T19:45:42.678825866Z"
     description: Eth2 Slasher by Prysmatic Labs
-    digest: 61594dc7514f0e7f20ea894c1ddc943e10a48f2863b44527c2cde257afb7b62a
+    digest: 5d0e8600095a31e1cf24d17c83e66234248321ebafbb725359506c9b35a95be1
     maintainers:
     - email: stefan@lsdopen.io
       name: Stefan Lesicnik
@@ -231,9 +245,9 @@ entries:
   prysm-validator:
   - apiVersion: v2
     appVersion: v1.1.0
-    created: "2021-01-21T19:35:46.149449083Z"
+    created: "2021-01-21T19:45:42.681415479Z"
     description: Eth2 Validator by Prysmatic Labs
-    digest: 3a54b18177aceeefa48275faeddde45cd951c9148cc4e1a5f6052b322eb3cc4a
+    digest: ec40cfdb7f32fbde7ce4999f9448a805494fc594ac1a5184d51c9b24bae13101
     maintainers:
     - email: stefan@lsdopen.io
       name: Stefan Lesicnik
@@ -244,7 +258,7 @@ entries:
     version: 1.0.4
   - apiVersion: v2
     appVersion: v1.1.0
-    created: "2021-01-21T19:35:46.148903582Z"
+    created: "2021-01-21T19:45:42.680901976Z"
     description: Eth2 Validator by Prysmatic Labs
     digest: 0765068affb56a7c00100a41a4997c882b1b9e509e2ed2a211aeb05740bb5eba
     maintainers:
@@ -257,7 +271,7 @@ entries:
     version: 1.0.3
   - apiVersion: v2
     appVersion: v1.0.5
-    created: "2021-01-21T19:35:46.148372681Z"
+    created: "2021-01-21T19:45:42.680373073Z"
     description: Eth2 Validator by Prysmatic Labs
     digest: ebbb0c24c0170d34ae24b29df876125c8696c4de6de7610aa4ad95f402ba1c34
     maintainers:
@@ -270,7 +284,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: v1.0.5
-    created: "2021-01-21T19:35:46.14786248Z"
+    created: "2021-01-21T19:45:42.679854871Z"
     description: Eth2 Validator by Prysmatic Labs
     digest: 0b92fbe26999e77a639537765bead0ba3910f59928be4b8eb4a7d4cce25518c0
     maintainers:
@@ -283,7 +297,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: v1.0.5
-    created: "2021-01-21T19:35:46.14736778Z"
+    created: "2021-01-21T19:45:42.679303768Z"
     description: Eth2 Validator by Prysmatic Labs
     digest: 139bad47643c6d2cb254c87c1a67a2c5b879f768344312e55ddba2c8c8800196
     maintainers:
@@ -297,9 +311,9 @@ entries:
   specter-desktop:
   - apiVersion: v2
     appVersion: v0.10.4
-    created: "2021-01-21T19:35:46.150143384Z"
+    created: "2021-01-21T19:45:42.682334183Z"
     description: A Helm chart for Kubernetes
-    digest: 042c52b81c2c830f14fd6d9d1a8c1895004d5555d98bc5e32ac011e529b88663
+    digest: c9b61446c15bdf0d8751d0b648bb9e1e8a99df0e51e788bb27b6a6bed69242e4
     name: specter-desktop
     type: application
     urls:
@@ -308,9 +322,9 @@ entries:
   testchart:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-01-21T19:35:46.152316987Z"
+    created: "2021-01-21T19:45:42.685321298Z"
     description: A Helm chart for Kubernetes
-    digest: 8ac1fa7809c3ca0e8bd9481518f217581f944f11194af61aac0b9ea1ea946219
+    digest: 4b9a802653aff7a364f74c1a29027e07d13af3cb163c14cc89ed3387a34a61e1
     name: testchart
     type: application
     urls:
@@ -318,7 +332,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-01-21T19:35:46.151760486Z"
+    created: "2021-01-21T19:45:42.684556894Z"
     description: A Helm chart for Kubernetes
     digest: cc05e81904fd0aea0eac9994539f8bcde0e7a729779f85620d69d9c407001f2b
     name: testchart
@@ -328,7 +342,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-01-21T19:35:46.151211685Z"
+    created: "2021-01-21T19:45:42.683825391Z"
     description: A Helm chart for Kubernetes
     digest: 83385efc1300929cec5c70561369026d23a69beff4d7b06ea2d711b30eb94971
     name: testchart
@@ -338,7 +352,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-01-21T19:35:46.150680284Z"
+    created: "2021-01-21T19:45:42.683093087Z"
     description: A Helm chart for Kubernetes
     digest: 795bb9d06f04192eda8f0325b8cbd45c808efc701975b79724bff7a4908a094e
     name: testchart
@@ -346,4 +360,4 @@ entries:
     urls:
     - https://lsdcapital.github.io/helm-charts/testchart-0.1.0.tgz
     version: 0.1.0
-generated: "2021-01-21T19:35:46.107675724Z"
+generated: "2021-01-21T19:45:42.633624641Z"
