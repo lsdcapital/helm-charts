@@ -61,8 +61,10 @@ beacon:
     grpc: 4000
     monitoring: 8080
 
-## Set storageClassName if you have no default defined
-#storageClassName: ""
+  ## Set storageClassName if you have no default defined
+  #storageClassName: ""
+
+  nodeSelector: ""
 
 service:
   type: ClusterIP

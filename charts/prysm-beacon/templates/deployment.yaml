@@ -73,3 +73,7 @@ spec:
           volumeMounts:
           - name: node-data
             mountPath: {{ .Values.beacon.deployment.dataDir }}
+      {{- if .Values.beacon.nodeSelector }}
+      nodeSelector:
+        {{ .Values.beacon.nodeSelector }}
+      {{- end }}              
