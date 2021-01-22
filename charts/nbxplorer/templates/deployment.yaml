@@ -46,6 +46,9 @@ spec:
             - "--rmquser=rabbituser"
             - "--rmqpass=test123"
             - "--rmqhost=nbxplorer-rabbitmq"
+            - "--rmqvirtual=/"
+            - "--rmqtranex="NewTransaction"
+            - "--rmqblockex=NetBlock"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
           - mountPath: /data
