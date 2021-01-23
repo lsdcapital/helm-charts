@@ -47,7 +47,7 @@ spec:
             - "--rmqpass=test123"
             - "--rmqhost=nbxplorer-rabbitmq"
             - "--rmqvirtual=/"
-            - "--rmqtranex="NewTransaction"
+            - "--rmqtranex=NewTransaction"
             - "--rmqblockex=NetBlock"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
