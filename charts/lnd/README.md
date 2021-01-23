@@ -45,17 +45,16 @@ A Helm chart for Lightning Labs LND
 | serviceAccount.name                        | string | `""`                    |             |
 | tolerations                                | list   | `[]`                    |             |
 
-Create or import you wallet. The startup will create an init container to let you do this. If it detects a wallet.db file, it should bypass this and move to unlock the file from .walletpass
+## Create a wallet
 
-How to create a wallet
+The startup will create an init container to let you do this. If it detects a wallet.db file, it should bypass this and move to unlock the file from .walletpass
+
+### How to create a wallet
 
 Exec into your pod
 kubectl -c lnd-init exec -it lnd-<pod-id> -- /bin/bash
-
-Start LND
-lnd --lnddir=/data --datadir=/data/data --configfile=/etc/lnd/lnd.conf &
+echo "yourwalletpass" > /data/.walletpass
 lncli --lnddir=/data create
-fg
 
 ##
 
