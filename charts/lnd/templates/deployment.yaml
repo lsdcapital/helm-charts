@@ -37,15 +37,15 @@ spec:
         - "-c"
         args:
         - >
-          if [ -f /data/data/chain/bitcoin/mainnet/wallet.db ]
+          if [[ -f /data/data/chain/bitcoin/mainnet/wallet.db ]]
           then
             exit 0
           else
-          /usr/bin/nohup /bin/lnd --lnddir=/data --datadir=/data/data --bitcoin.active --bitcoin.mainnet --btcd.rpcuser=meep --btcd.rpcpass=meep;
-          until test -f /data/data/chain/bitcoin/mainnet/wallet.db;
-            do echo "Waiting for wallet creation. Exec into this pod and run lncli --lnddir=/data create";
-            sleep 10;
-          done
+            /usr/bin/nohup /bin/lnd --lnddir=/data --datadir=/data/data --bitcoin.active --bitcoin.mainnet --btcd.rpcuser=meep --btcd.rpcpass=meep;
+            until test -f /data/data/chain/bitcoin/mainnet/wallet.db;
+              do echo "Waiting for wallet creation. Exec into this pod and run lncli --lnddir=/data create";
+              sleep 10;
+            done
           fi
         volumeMounts:
           - mountPath: /data
