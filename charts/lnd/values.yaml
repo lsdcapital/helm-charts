@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 config:
+  alias: lsdcapital
   walletpass: changeme
   lbport: 9735
   externalIp:

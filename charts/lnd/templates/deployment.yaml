@@ -48,7 +48,7 @@ spec:
           args:
             - "--lnddir=/data"
             - "--datadir=/data/data"
-            - "--alias=lsdcapital"
+            - "--alias={{ .Values.config.alias }}"
             - "--debuglevel=info"
             - "--maxpendingchannels=4"
             - "--stagger-initial-reconnect"
