@@ -29,16 +29,16 @@ spec:
       serviceAccountName: {{ include "lnd.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      # initContainers:
-      # - name: lnd-init
-      #   image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-      #   command:
-      #   - "/bin/bash"
-      #   - "-c"
-      #   - "until test -f /data/data/chain/bitcoin/mainnet/wallet.db; do echo Waiting for wallet creation. Exec into this pod and run lncli --lnddir=/data --datadir=/data/data create; sleep 10; done"
-      #   volumeMounts:
-      #     - mountPath: /data
-      #       name: lnd
+      initContainers:
+      - name: lnd-init
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        command:
+        - "/bin/bash"
+        - "-c"
+        - "until test -f /data/data/chain/bitcoin/mainnet/wallet.db; do echo Waiting for wallet creation. Exec into this pod and run lncli --lnddir=/data --datadir=/data/data create; sleep 10; done"
+        volumeMounts:
+          - mountPath: /data
+            name: lnd
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -58,7 +58,9 @@ spec:
             - "--listen=0.0.0.0:9735"
             - "--rpclisten=0.0.0.0:10009"
             - "--restlisten=127.0.0.1:8080"
+            {{- if .Values.config.externalIp }}
             - "--externalip={{ .Values.config.externalIp }}"
+            {{- end }}
             - "--tlsextraip=lnd"
             - "--tlsextradomain=lnd"
             - "--tlsextradomain=lnd-loadbalancer"
@@ -75,13 +77,13 @@ spec:
             - "--protocol.wumbo-channels"
             - "--wtclient.active"
             #- "--db.bolt.auto-compact"
-          # lifecycle:
-          #   postStart:
-          #     exec:
-          #       command:
-          #       - /bin/sh
-          #       - -c
-          #       - "until lncli --lnddir=/data unlock --stdin < /data/.walletpass; do echo Waiting for wallet; sleep 5; done"
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                - /bin/sh
+                - -c
+                - "until lncli --lnddir=/data unlock --stdin < /data/.walletpass; do echo Waiting for wallet; sleep 5; done"
           volumeMounts:
           - mountPath: /data
             name: lnd

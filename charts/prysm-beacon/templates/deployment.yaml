@@ -76,4 +76,4 @@ spec:
       {{- if .Values.beacon.nodeSelector }}
       nodeSelector:
         {{ .Values.beacon.nodeSelector }}
-      {{- end }}              
+      {{- end }}
