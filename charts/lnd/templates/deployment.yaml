@@ -74,7 +74,7 @@ spec:
             - "--bitcoind.zmqpubrawtx=tcp://bitcoind.bitcoin.svc.cluster.local:28333"
             - "--protocol.wumbo-channels"
             - "--wtclient.active"
-            - "--db.bolt.auto-compact"
+            #- "--db.bolt.auto-compact"
           # lifecycle:
           #   postStart:
           #     exec:
