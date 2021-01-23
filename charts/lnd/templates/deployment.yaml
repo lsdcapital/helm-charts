@@ -36,7 +36,7 @@ spec:
         - "/bin/bash"
         - "-c"
         args:
-        - >
+        - |
           if [[ -f /data/data/chain/bitcoin/mainnet/wallet.db ]]
           then
             exit 0
