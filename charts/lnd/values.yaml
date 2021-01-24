@@ -12,6 +12,11 @@ config:
     ## Set storageClassName if you have no default defined
     #storageClassName: ""
     size: 1Gi
+  tlsExtraIp:
+    - lnd
+  tlsExtraDomain:
+    - lnd
+    - lnd-loadbalancer
 
 replicaCount: 1
 

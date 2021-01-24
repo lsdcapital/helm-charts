@@ -72,9 +72,16 @@ spec:
             {{- if .Values.config.externalIp }}
             - "--externalip={{ .Values.config.externalIp }}"
             {{- end }}
-            - "--tlsextraip=lnd"
-            - "--tlsextradomain=lnd"
-            - "--tlsextradomain=lnd-loadbalancer"
+            {{- if .Values.config.tlsExtraIp }}
+            {{- range .Values.config.tlsExtraIp }}
+            - "--tlsextraip={{ . }}"
+            {{- end }}
+            {{- end }}
+            {{- if .Values.config.tlsExtraDomain }}
+            {{- range .Values.config.tlsExtraDomain }}
+            - "--tlsextradomain={{ . }}"
+            {{- end }}
+            {{- end }}
             - "--bitcoin.active"
             - "--bitcoin.node=bitcoind"
             - "--bitcoin.mainnet"
