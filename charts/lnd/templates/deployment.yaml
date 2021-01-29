@@ -65,7 +65,7 @@ spec:
             - "--stagger-initial-reconnect"
             - "--accept-keysend"
             - "--allow-circular-route"
-            - "--minchansize=100000"
+            - "--minchansize={{ .Values.bitcoin.minChanSize }}"
             - "--listen=0.0.0.0:9735"
             - "--rpclisten=0.0.0.0:10009"
             - "--restlisten=127.0.0.1:8080"
@@ -94,7 +94,7 @@ spec:
             - "--bitcoind.zmqpubrawtx=tcp://bitcoind.bitcoin.svc.cluster.local:28333"
             - "--protocol.wumbo-channels"
             - "--wtclient.active"
-            #- "--db.bolt.auto-compact"
+            - "--db.bolt.auto-compact"
           lifecycle:
             postStart:
               exec:

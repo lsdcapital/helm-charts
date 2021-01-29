@@ -20,13 +20,16 @@ config:
 
 replicaCount: 1
 
+bitcoin:
+  minChanSize: 100000
+
 bitcoind:
   rpcuser: ""
   rpcpass: ""
 
 image:
-  #repository: lightninglabs/lnd
-  repository: guggero/lnd
+  repository: lightninglabs/lnd
+  #repository: guggero/lnd
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
