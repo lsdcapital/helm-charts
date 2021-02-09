@@ -15,12 +15,13 @@ validator:
     init: false
     main: false
 
+  image:
+    repository: "gcr.io/prysmaticlabs/prysm/validator"
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "stable"
+
   deployment:
-    image:
-      repository: "gcr.io/prysmaticlabs/prysm/validator"
-      pullPolicy: IfNotPresent
-      # Overrides the image tag whose default is the chart appVersion.
-      tag: "stable"
     dataDir: "/data"
 
   persistentVolume:
