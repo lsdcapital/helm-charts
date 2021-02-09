@@ -25,7 +25,7 @@ spec:
           command: ['sleep']
           args: ['infinity']
           {{- else }}
-          image: "{{ .Values.validator.deployment.image.repository }}:{{ .Values.validator.deployment.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.validator.image.repository }}:{{ .Values.validator.image.tag | default .Chart.AppVersion }}"
           args:
             - "accounts"
             - "import"
@@ -48,7 +48,7 @@ spec:
           command: ['sleep']
           args: ['infinity']
           {{- else }}
-          image: "{{ .Values.validator.deployment.image.repository }}:{{ .Values.validator.deployment.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.validator.image.repository }}:{{ .Values.validator.image.tag | default .Chart.AppVersion }}"
           args:
             - "--beacon-rpc-provider={{ .Values.validator.beacon }}"
             - "--wallet-dir=/keys"
@@ -67,7 +67,7 @@ spec:
             - "--accept-terms-of-use"
             {{- end }}
           {{- end }}
-          imagePullPolicy: {{ .Values.validator.deployment.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.validator.image.pullPolicy }}
           resources:
           {{ toYaml .Values.resources | nindent 12 }}
           volumeMounts:
