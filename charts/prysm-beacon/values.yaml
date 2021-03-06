@@ -10,7 +10,7 @@ beacon:
   # -- http url to eth1 node (Your own or 3rd party)
   web3HttpProvider: ""
   # -- Peer to peer max peers. Try increase if missing attestations
-  p2pMaxPeers: 60
+  p2pMaxPeers: 70
   logfile: /data/beacon.log
   verbosity: info
   rpcHost: 0.0.0.0
@@ -52,8 +52,10 @@ beacon:
 
   ingress:
     enabled: true
-    # External IP needed to load balance the p2p connections
+    # External IP needed to ingress balance the p2p connections
     extip: ""
+    # External DNS name to ingress balance the p2p connections
+    extdns: ""
 
   ports:
     p2pTcp: 13000

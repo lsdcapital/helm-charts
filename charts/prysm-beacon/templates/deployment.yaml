@@ -55,6 +55,9 @@ spec:
             {{- if .Values.beacon.ingress.extip }}
             - "--p2p-host-ip={{ .Values.beacon.ingress.extip }}"
             {{- end }}
+            {{- if .Values.beacon.ingress.extip }}
+            - "--p2p-host-dns={{ .Values.beacon.ingress.extdns }}"
+            {{- end }}
             - "--{{ .Values.beacon.chain }}"
           imagePullPolicy: {{ .Values.beacon.image.pullPolicy }}
           resources:
