@@ -51,7 +51,7 @@ beacon:
   #     memory: 2.5Gi
 
   ingress:
-    enabled: true
+    enabled: false
     # External IP needed to ingress balance the p2p connections
     extip: ""
     # External DNS name to ingress balance the p2p connections
