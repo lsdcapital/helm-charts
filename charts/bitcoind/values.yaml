@@ -15,6 +15,7 @@ config:
     enabled: true
     addr: 0.0.0.0
     port: 8332
+    allowip: 192.168.0.0/16
   zmqblock:
     enabled: true
     addr: 0.0.0.0

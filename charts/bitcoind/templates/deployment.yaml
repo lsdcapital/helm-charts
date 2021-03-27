@@ -59,7 +59,7 @@ spec:
             - "-rpcauth={{ .Values.config.rpcauth }}"
             - "-rpcbind=0.0.0.0"
             - "-rpcport=8332"
-            - "-rpcallowip=192.168.0.0/16"
+            - "-rpcallowip={{ .Values.config.rpc.allowip }}"
             - "-zmqpubrawblock=tcp://0.0.0.0:28332"
             - "-zmqpubrawtx=tcp://0.0.0.0:28333"
             {{- end }}
