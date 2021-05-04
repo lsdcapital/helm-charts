@@ -3,7 +3,7 @@ name: prysm-beacon
 description: Eth2 Beacon Chain Node by Prysmatic Labs
 type: application
 version: 1.0.10
-appVersion: v1.3.3
+appVersion: v1.3.6
 sources: [http://github.com/lsdcapital/helm-charts/prysm-beacon]
 
 maintainers:
