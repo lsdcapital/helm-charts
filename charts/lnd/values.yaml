@@ -30,6 +30,7 @@ bitcoind:
   rpcport: ""
   zmqpubrawblockport: ""
   zmqpubrawtxport: ""
+  estimatemode: ""
 
 image:
   repository: lightninglabs/lnd

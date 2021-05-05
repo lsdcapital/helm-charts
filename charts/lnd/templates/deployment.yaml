@@ -92,6 +92,7 @@ spec:
             - "--bitcoind.rpchost={{ .Values.bitcoind.rpchost }}"
             - "--bitcoind.zmqpubrawblock=tcp://{{ .Values.bitcoind.rpchost }}:{{ .Values.bitcoind.zmqpubrawblockport }}"
             - "--bitcoind.zmqpubrawtx=tcp://{{ .Values.bitcoind.rpchost }}:{{ .Values.bitcoind.zmqpubrawtxport }}"
+            - "--bitcoind.estimatemode={{ default "CONSERVATIVE" .Values.bitcoind.estimatemode }}"
             - "--protocol.wumbo-channels"
             - "--wtclient.active"
             - "--db.bolt.auto-compact"
