@@ -87,6 +87,8 @@ spec:
             - "--bitcoin.mainnet"
             - "--bitcoin.defaultchanconfs=2"
             - "--bitcoin.minhtlc=1"
+            - "--bitcoin.basefee={{ .Values.bitcoin.basefee }}"
+            - "--bitcoin.feerate={{ .Values.bitcoin.feerate }}"
             - "--bitcoind.rpcuser={{ .Values.bitcoind.rpcuser }}"
             - "--bitcoind.rpcpass={{ .Values.bitcoind.rpcpass }}"
             - "--bitcoind.rpchost={{ .Values.bitcoind.rpchost }}"

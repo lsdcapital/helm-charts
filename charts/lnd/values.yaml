@@ -22,6 +22,8 @@ replicaCount: 1
 
 bitcoin:
   minChanSize: 100000
+  basefee: 1000
+  feerate: 1
 
 bitcoind:
   rpcuser: ""
