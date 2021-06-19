@@ -69,7 +69,7 @@ spec:
             - "--listen=0.0.0.0:9735"
             - "--rpclisten=0.0.0.0:10009"
             - "--restlisten=127.0.0.1:8080"
-            - "--accept-amp=1"
+            - "--accept-amp"
             {{- if .Values.config.externalIp }}
             - "--externalip={{ .Values.config.externalIp }}"
             {{- end }}
