@@ -47,7 +47,7 @@ spec:
             - "-testnet=0"
             - "-listen=1"
             - "-server=1"
-            {{- if gt .Values.config.prune 0 }}
+            {{- if gt (.Values.config.prune | toString | atoi) 0 }}
             - "-prune={{ .Values.config.prune }}"
             - "-txindex=0"
             {{- else -}}
