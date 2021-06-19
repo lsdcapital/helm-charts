@@ -20,6 +20,13 @@ config:
 
 replicaCount: 1
 
+tor:
+  enabled: false
+  sockshost: tor
+  socksport: 9050
+  controlhost: tor
+  controlport: 9051
+
 bitcoin:
   minChanSize: 100000
   basefee: 1000
@@ -36,7 +43,6 @@ bitcoind:
 
 image:
   repository: lightninglabs/lnd
-  #repository: guggero/lnd
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

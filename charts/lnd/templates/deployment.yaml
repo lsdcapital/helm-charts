@@ -69,6 +69,7 @@ spec:
             - "--listen=0.0.0.0:9735"
             - "--rpclisten=0.0.0.0:10009"
             - "--restlisten=127.0.0.1:8080"
+            - "--accept-amp=1"
             {{- if .Values.config.externalIp }}
             - "--externalip={{ .Values.config.externalIp }}"
             {{- end }}
@@ -98,6 +99,11 @@ spec:
             - "--protocol.wumbo-channels"
             - "--wtclient.active"
             - "--db.bolt.auto-compact"
+            {{- if .Values.tor.enabled }}
+            - "--tor.active"
+            - "--tor.socks={{ .Values.tor.sockshost }}:{{ .Values.tor.socksport }}"
+            - "--tor.control={{ .Values.tor.controlhost }}:{{ .Values.tor.controlport }}"
+            {{- end }}
           lifecycle:
             postStart:
               exec:
