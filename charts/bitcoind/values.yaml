@@ -6,6 +6,7 @@ debug: false
 
 config:
   printtoconsole: true
+  prune: 0
   rpcauth: ""
   p2p:
     enabled: true

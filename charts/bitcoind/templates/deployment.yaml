@@ -47,7 +47,12 @@ spec:
             - "-testnet=0"
             - "-listen=1"
             - "-server=1"
+            {{- if gt .Values.config.prune 0 }}
+            - "-prune={{ .Values.config.prune }}"
+            - "-txindex=0"
+            {{- else -}}
             - "-txindex=1"
+            {{- end }}            
             - "-disablewallet=0"
             - "-blockfilterindex=1"            
             - "-dbcache=1024"
