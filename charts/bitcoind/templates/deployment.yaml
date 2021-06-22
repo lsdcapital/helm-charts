@@ -61,7 +61,7 @@ spec:
             - "-maxconnections=20"
             - "-maxuploadtarget=5000"
             - "-rest=1"
-            - "-rpcauth={{ .Values.config.rpcauth }}"
+            - "-rpcauth={{ .Values.config.rpcauth | quote }}"
             - "-rpcbind=0.0.0.0"
             - "-rpcport=8332"
             - "-rpcallowip={{ .Values.config.rpc.allowip }}"
