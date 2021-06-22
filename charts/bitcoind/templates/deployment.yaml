@@ -52,9 +52,9 @@ spec:
             - "-txindex=0"
             {{- else }}
             - "-txindex=1"
+            - "-blockfilterindex=1"            
             {{- end }}            
             - "-disablewallet=0"
-            - "-blockfilterindex=1"            
             - "-dbcache=1024"
             - "-maxorphantx=10"
             - "-maxmempool=256"
