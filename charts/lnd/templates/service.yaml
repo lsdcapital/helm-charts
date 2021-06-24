@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{include "lnd.fullname" .}}
+  name: {{include "lnd.fullname"-rpc .}}
   labels: {{- include "lnd.labels" . | nindent 4}}
 spec:
   type: {{.Values.service.type}}
@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{include "lnd.fullname" .}}
+  name: {{include "lnd.fullname"-rest .}}
   labels: {{- include "lnd.labels" . | nindent 4}}
 spec:
   type: {{.Values.service.type}}
