@@ -64,6 +64,8 @@ spec:
             value: "btcpay"
           - name: BTCPAY_PROTOCOL
             value: "https"
+          - name: BTCPAYGEN_LIGHTNING
+            value: "lnd"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
           - mountPath: /data
@@ -75,14 +77,6 @@ spec:
             - name: btcpayserver
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -109,4 +103,4 @@ spec:
         #     secretName: btcpayserver-config
         - name: cookie
           secret:
-            secretName: btcpayserver-config            
+            secretName: btcpayserver-config
