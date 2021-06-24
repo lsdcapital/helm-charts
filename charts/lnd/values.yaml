@@ -17,6 +17,7 @@ config:
   tlsExtraDomain:
     - lnd
     - lnd-loadbalancer
+  restListen:
 
 replicaCount: 1
 

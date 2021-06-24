@@ -68,7 +68,10 @@ spec:
             - "--minchansize={{ .Values.bitcoin.minChanSize }}"
             - "--listen=0.0.0.0:9735"
             - "--rpclisten=0.0.0.0:10009"
-            - "--restlisten=127.0.0.1:8080"
+            {{- if .Values.config.restListen }}
+            - "--restlisten={{ .Values.config.restListen }}"
+            - "--restcors=*"
+            {{- end }}            
             - "--accept-amp"
             {{- if .Values.config.externalIp }}
             - "--externalip={{ .Values.config.externalIp }}"
@@ -114,14 +117,6 @@ spec:
           volumeMounts:
           - mountPath: /data
             name: lnd
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
