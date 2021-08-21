@@ -1,18 +1,16 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "lnd.fullname" . }}
   labels:
     {{- include "lnd.labels" . | nindent 4 }}
+    app: {{ template "lnd.name" . }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
-      {{- include "lnd.selectorLabels" . | nindent 6 }}
+      {{- include "lnd.selectorLabels" . | nindent 6 }}    
+  serviceName: {{ template "lnd.fullname" . }}
+  replicas: 1
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -131,7 +129,15 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      volumes:
-        - name: lnd
-          persistentVolumeClaim:
-            claimName: lnd
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "lnd.fullname" . }}
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        {{- if .Values.config.persistence.storageClassName }}
+        storageClassName: {{ .Values.config.persistence.storageClassName }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.config.persistence.size }}
