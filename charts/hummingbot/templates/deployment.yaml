@@ -65,4 +65,4 @@ spec:
           emptyDir: {}
         - name: hummingbot-conf
           persistentVolumeClaim:
-            claimName: hummingbot
+            claimName: {{ include "hummingbot.fullname" . }}
