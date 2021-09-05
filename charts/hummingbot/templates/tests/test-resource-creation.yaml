@@ -8,8 +8,11 @@ metadata:
     "helm.sh/hook": test
 spec:
   containers:
-    - name: wget
-      image: busybox
-      command: ['wget']
-      args: ['{{ include "hummingbot.fullname" . }}:{{ .Values.service.port }}']
+    - name: kubectl
+      image: bitnami/kubectl
+      command: ['kubectl']
+      args:
+      - get
+      - '{{ include "hummingbot.fullname" . }}-0'
+      - '-n {{ .Release.Namespace }}'
   restartPolicy: Never
