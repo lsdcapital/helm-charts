@@ -1,13 +1,13 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "hummingbot.fullname" . }}
   labels:
     {{- include "hummingbot.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  podManagementPolicy: Parallel
+  serviceName: {{ include "hummingbot.fullname" . }}
   # strategy:
   #   type: Recreate
   selector:
@@ -63,6 +63,14 @@ spec:
       volumes:
         - name: hummingbot-logs
           emptyDir: {}
-        - name: hummingbot-conf
-          persistentVolumeClaim:
-            claimName: hummingbot
+  volumeClaimTemplates:
+  - metadata:
+      name: hummingbot-conf
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      {{- if .Values.persistence.storageClassName }}
+      storageClassName: {{ .Values.persistence.storageClassName }}
+      {{- end }}
+      resources:
+        requests:
+          storage: {{ .Values.persistence.size }}
