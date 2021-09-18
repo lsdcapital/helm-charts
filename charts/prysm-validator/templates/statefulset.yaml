@@ -11,8 +11,6 @@ spec:
     {{- include "prysm-validator.selectorLabels" . | nindent 6 }}
   serviceName: {{ template "prysm-validator.fullname" . }}
   replicas: 1
-  # updateStrategy:
-  #   rollingUpdate: null
   template:
     metadata:
       labels:
