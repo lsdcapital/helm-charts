@@ -104,7 +104,7 @@ spec:
             - "--tor.active"
             - "--tor.v3"
             - "--tor.streamisolation"
-            - "--tor.password={{ . Values.tor.password }}"
+            - "--tor.password={{ .Values.tor.password }}"
             - "--tor.socks={{ .Values.tor.sockshost }}:{{ .Values.tor.socksport }}"
             - "--tor.control={{ .Values.tor.controlhost }}:{{ .Values.tor.controlport }}"
             {{- end }}
