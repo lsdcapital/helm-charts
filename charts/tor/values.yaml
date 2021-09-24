@@ -1,6 +1,9 @@
 socks:
+  host: 0.0.0.0
   port: 9050
-
+control:
+  host: 0.0.0.0
+  port: 9051
 # Default values for testchart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -43,7 +46,6 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 9050
 
 ingress:
   enabled: false

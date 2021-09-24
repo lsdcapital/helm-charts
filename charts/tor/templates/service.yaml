@@ -6,8 +6,12 @@ metadata:
 spec:
   type: {{.Values.service.type}}
   ports:
-    - port: {{.Values.service.port}}
-      targetPort: http
+    - port: {{.Values.socks.port}}
+      targetPort: {{.Values.socks.port}}
       protocol: TCP
-      name: http
+      name: socks
+    - port: {{.Values.control.port}}
+      targetPort: {{.Values.control.port}}
+      protocol: TCP
+      name: control
   selector: {{- include "tor.selectorLabels" . | nindent 4}}

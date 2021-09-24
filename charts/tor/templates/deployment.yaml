@@ -37,6 +37,9 @@ spec:
             - name: socks
               containerPort: {{ .Values.socks.port }}
               protocol: TCP
+            - name: control
+              containerPort: {{ .Values.control.port }}
+              protocol: TCP
           # livenessProbe:
           #   httpGet:
           #     path: /
