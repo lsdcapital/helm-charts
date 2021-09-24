@@ -103,8 +103,8 @@ spec:
             {{- if .Values.tor.enabled }}
             - "--tor.active"
             - "--tor.v3"
-            - "--listen=localhost"
             - "--tor.streamisolation"
+            - "--tor.password={{ . Values.tor.password }}"
             - "--tor.socks={{ .Values.tor.sockshost }}:{{ .Values.tor.socksport }}"
             - "--tor.control={{ .Values.tor.controlhost }}:{{ .Values.tor.controlport }}"
             {{- end }}

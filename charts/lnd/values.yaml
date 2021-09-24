@@ -27,6 +27,7 @@ tor:
   socksport: 9050
   controlhost: tor
   controlport: 9051
+  password: default
 
 bitcoin:
   minChanSize: 100000
