@@ -14,9 +14,11 @@ spec:
   - protocol: TCP
     port: {{ .Values.config.lbport }}
     targetPort: {{ .Values.config.lbport }}
+    name: app
     {{- if .Values.config.restListen }}
   - protocol: TCP
     port: 10009
     targetPort: 10009
+    name: rpc
     {{- end }}            
 {{- end -}}
