@@ -1,0 +1,7 @@
+SOCKSPort 0.0.0.0:9050
+SocksPolicy accept *
+Log notice stdout
+ControlPort 0.0.0.0:9051
+CookieAuthentication 1
+HashedControlPassword 16:0297FFF02E41236C60D036A9C1B30FE581827B40B701ABB83FE0987B80
+SafeLogging 0
