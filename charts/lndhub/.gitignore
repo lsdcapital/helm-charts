@@ -1,0 +1,3 @@
+config/tls.cert
+config/admin.macaroon
+config/config.js
