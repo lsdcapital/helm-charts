@@ -22,6 +22,11 @@ version: 0.1.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: v1.4.1
 
+dependencies:
+  - name: redis
+    version: "15.5.1"
+    repository: https://charts.bitnami.com/bitnami
+
 maintainers:
   - email: stefan@lsdopen.io
     name: Stefan Lesicnik
