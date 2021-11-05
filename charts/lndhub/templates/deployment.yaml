@@ -41,14 +41,14 @@ spec:
           # args: ['infinity']          
           volumeMounts:
           - mountPath: /lndhub/config.js
-            name: config-js
+            name: lndhub-config-js
             subPath: "config.js"
-          - mountPath: /lndhub/admin.macaroon
-            name: admin-macaroon
-            subPath: "admin.macaroon"
           - mountPath: /lndhub/tls.cert
-            name: tls-cert
-            subPath: "tls.cert"            
+            name: lndhub-tls-cert
+            subPath: "tls.cert"
+          - mountPath: /lndhub/admin.macaroon
+            name: lndhub-admin-macaroon
+            subPath: "admin.macaroon"
           # livenessProbe:
           #   httpGet:
           #     path: /
@@ -72,14 +72,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: admin-macaroon
+        - name: lndhub-config-js
           secret:
-            secretName: lndhub-config
-        - name: tls-cert
+            secretName: lndhub-config-js
+        - name: lndhub-tls-cert
           secret:
-            secretName: lndhub-config
-        - name: config-js
+            secretName: lndhub-tls-cert
+        - name: lndhub-admin-macaroon
           secret:
-            secretName: lndhub-config
-
+            secretName: lndhub-admin-macaroon
 
