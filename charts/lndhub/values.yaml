@@ -55,14 +55,14 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-production
     kubernetes.io/ingress.class: traefik-cert-manager
   hosts:
-    - host: lndhub-test.cluster-02.lsdopen.io
+    - host: lndhub.domain
       paths:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: lndhub-test-tls
+    - secretName: lndhub-tls
       hosts:
-        - lndhub-test.cluster-02.lsdopen.io
+        - lndhub.domain
 
 resources:
   {}
