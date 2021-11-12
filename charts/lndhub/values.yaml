@@ -47,22 +47,22 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 80
+  port: 3000
 
 ingress:
   enabled: true
-  type: gke
   annotations:
-    {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    kubernetes.io/ingress.class: traefik-cert-manager
   hosts:
-    - host: chart-example.local
-      paths: []
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+    - host: lndhub.domain
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: lndhub-tls
+      hosts:
+        - lndhub.domain
 
 resources:
   {}
