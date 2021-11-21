@@ -66,7 +66,7 @@ spec:
             - "--minchansize={{ .Values.bitcoin.minChanSize }}"
             - "--listen=0.0.0.0:9735"
             - "--rpclisten=0.0.0.0:10009"
-            - "--routing.strictgraphpruning=true"
+            - "--routing.strictgraphpruning"
             {{- if .Values.config.restListen }}
             - "--restlisten={{ .Values.config.restListen }}"
             - "--restcors=*"
