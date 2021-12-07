@@ -8,7 +8,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "lnd.selectorLabels" . | nindent 6 }}    
+      {{- include "lnd.selectorLabels" . | nindent 6 }}
   serviceName: {{ template "lnd.fullname" . }}
   replicas: 1
   template:
@@ -66,10 +66,11 @@ spec:
             - "--minchansize={{ .Values.bitcoin.minChanSize }}"
             - "--listen=0.0.0.0:9735"
             - "--rpclisten=0.0.0.0:10009"
+            - "--routing.strictgraphpruning"
             {{- if .Values.config.restListen }}
             - "--restlisten={{ .Values.config.restListen }}"
             - "--restcors=*"
-            {{- end }}            
+            {{- end }}
             - "--accept-amp"
             {{- if .Values.config.externalIp }}
             - "--externalip={{ .Values.config.externalIp }}"
@@ -101,6 +102,7 @@ spec:
             # - "--wtclient.active"
             - "--db.bolt.auto-compact"
             {{- if .Values.tor.enabled }}
+            - "--tor.skip-proxy-for-clearnet-targets"
             - "--tor.active"
             - "--tor.v3"
             # - "--tor.streamisolation"
