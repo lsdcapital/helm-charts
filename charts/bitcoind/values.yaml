@@ -8,6 +8,7 @@ config:
   printtoconsole: true
   prune: 0
   rpcauth: ""
+  whitelist: ""
   p2p:
     enabled: true
     addr: 0.0.0.0

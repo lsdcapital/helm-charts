@@ -44,6 +44,9 @@ spec:
             {{- if not .Values.config.printtoconsole }}
             - "-printtoconsole=0"
             {{- end }}
+            {{- if .Values.config.whitelist }}
+            - "-whitelist={{ .Values.config.whitelist }}"
+            {{- end }}
             - "-testnet=0"
             - "-listen=1"
             - "-server=1"
