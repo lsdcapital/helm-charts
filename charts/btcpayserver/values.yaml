@@ -5,9 +5,9 @@
 replicaCount: 1
 
 postgresql:
-  postgresqlPassword: ""
-  postgresqlDatabase: btcpay
-  postgresqlUsername: btcpay
+  auth.password: ""
+  auth.database: btcpay
+  auth.username: btcpay
 
 image:
   repository: btcpayserver/btcpayserver

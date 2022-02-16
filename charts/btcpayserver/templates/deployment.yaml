@@ -39,7 +39,7 @@ spec:
           #   - "--debuglog=/data/debug.log"
           env:
           - name: BTCPAY_POSTGRES
-            value: "User ID=btcpay;Password={{ .Values.postgresql.postgresqlPassword }};Host=btcpayserver-postgresql;Port=5432;Database=btcpay"          
+            value: "User ID={{ .Values.postgresql.auth.username }};Password={{ .Values.postgresql.auth.password }};Host=btcpayserver-postgresql;Port=5432;Database={{ .Values.postgresql.auth.database }}"
           - name: NBITCOIN_NETWORK
             value: "mainnet"
           - name: BTCPAY_BIND
