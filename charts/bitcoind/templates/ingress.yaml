@@ -1,38 +1,4 @@
 {{- if .Values.ingress.enabled -}}
-{{- if eq .Values.ingress.type "gke" -}}
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "bitcoind.fullname" . }}-http-lb
-  labels:
-  {{- include "bitcoind.labels" . | nindent 4 }}
-spec:
-  type: LoadBalancer
-  selector:
-    app.kubernetes.io/name: {{ include "bitcoind.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-  ports:
-  - protocol: TCP
-    port: {{ .Values.config.http.port }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "bitcoind.fullname" . }}-ws-lb
-  labels:
-  {{- include "bitcoind.labels" . | nindent 4 }}
-spec:
-  type: LoadBalancer
-  selector:
-    app.kubernetes.io/name: {{ include "bitcoind.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-  ports:
-  - protocol: TCP
-    port: {{ .Values.config.ws.port }}
-{{- end -}}
-
-{{- else -}}
-{{- if .Values.ingress.enabled -}}
 {{- $fullName := include "bitcoind.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
