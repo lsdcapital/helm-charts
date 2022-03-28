@@ -6,7 +6,7 @@ debug: false
 
 config:
   datadir: "/data"
-  syncmode: "fast"
+  syncmode: "snap"
   cache: "1024"
   net: "main" # main, goerli, rinkeby, yolov1, ropsten
   http:
@@ -29,8 +29,6 @@ config:
     #storageClassName: ""
     # This is the size if split is not enabled
     size: 800Gi
-
-replicaCount: 1
 
 image:
   repository: ethereum/client-go
@@ -97,12 +95,12 @@ resources:
     #cpu: 100m
     memory: 4Gi
 
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
+# autoscaling:
+#   enabled: false
+#   minReplicas: 1
+#   maxReplicas: 100
+#   targetCPUUtilizationPercentage: 80
+#   # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 
