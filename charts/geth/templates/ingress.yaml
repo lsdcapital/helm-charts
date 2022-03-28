@@ -1,5 +1,4 @@
 {{- if .Values.ingress.enabled -}}
-{{- if eq .Values.ingress.type "gke" -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -27,5 +26,4 @@ spec:
       protocol: UDP
   type: LoadBalancer
   loadBalancerIP: {{ .Values.ingress.extip }}
-{{- end }}
 {{- end }}

@@ -20,14 +20,15 @@ config:
   persistence:
     enabled: true
     split:
-      enabled: true  # This will split the ancient directory to hdd and use faster storage for ssd
+      enabled: false  # This will split the ancient directory to hdd and use faster storage for ssd
       scSsd: ssd  # storageClass name for high speed
       sizeSsd: 300Gi
       scHdd: standard  # storageClass name for normal  (will put ancientdir here)
-      sizeHdd: 300Gi
+      sizeHdd: 500Gi
     ## Set storageClassName if you have no default defined. For geth you need an fast (ssd) disk to keep up
     #storageClassName: ""
-    size: 500Gi
+    # This is the size if split is not enabled
+    size: 800Gi
 
 replicaCount: 1
 
@@ -68,7 +69,6 @@ service:
 
 ingress:
   enabled: true
-  type: gke
   annotations:
     # kubernetes.io/ingress.class: gce
     # kubernetes.io/tls-acme: "true"
