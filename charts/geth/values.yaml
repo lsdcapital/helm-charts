@@ -6,7 +6,7 @@ debug: false
 
 config:
   datadir: "/data"
-  syncmode: "snap"
+  syncmode: "full"
   cache: "1024"
   net: "main" # main, goerli, rinkeby, yolov1, ropsten
   http:
