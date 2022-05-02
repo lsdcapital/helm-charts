@@ -42,7 +42,7 @@ beacon:
 
   persistentVolume:
     # -- Persistent volume size for the beacon data
-    size: 50Gi
+    size: 100Gi
 
   # resources:
   #   limits:
