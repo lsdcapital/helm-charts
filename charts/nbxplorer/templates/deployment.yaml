@@ -49,6 +49,8 @@ spec:
             - "--rmqvirtual=/"
             - "--rmqtranex=NewTransaction"
             - "--rmqblockex=NetBlock"
+            - "--postgres=User ID={{ .Values.postgresql.auth.username }};Password={{ .Values.postgresql.auth.password }};Host=btcpayserver-postgresql;Port=5432;Database={{ .Values.postgresql.auth.database }}"
+            - "--automigrate=1"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
           - mountPath: /data
