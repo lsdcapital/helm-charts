@@ -7,6 +7,7 @@ validator:
   # -- Terms of use must be set to true. [Terms of service](https://github.com/prysmaticlabs/prysm/blob/master/TERMS_OF_SERVICE.md)
   acceptTermsOfUse: false
   graffiti: ""
+  suggested-fee-recipient: "0xcd4D5334f541645e83499030b9CA29805d24561d"
   beacon: "prysm-beacon:4000"
   logfile: /data/validator.log
   verbosity: info
