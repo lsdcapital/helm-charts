@@ -31,7 +31,7 @@ spec:
             - "--wallet-dir=/keys"
             - "--wallet-password-file=/keys/import/walletpass"
             - "--account-password-file=/keys/import/validatorpass"
-            - "--suggested-fee-recipient={{ .Values.validator.suggested-fee-recipient }}"
+            - "--suggested-fee-recipient={{ .Values.validator.suggestedFeeRecipient }}"
             - "--{{ .Values.validator.chain }}"
             {{- if .Values.validator.acceptTermsOfUse }}
             - "--accept-terms-of-use"
