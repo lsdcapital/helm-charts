@@ -20,5 +20,9 @@ spec:
     port: 10009
     targetPort: 10009
     name: rpc
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    name: rest    
     {{- end }}            
 {{- end -}}
