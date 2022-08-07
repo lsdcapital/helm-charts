@@ -7,6 +7,8 @@ beacon:
   chain: "mainnet" # mainnet | pyrmont
   # -- Must accept terms of use https://github.com/prysmaticlabs/prysm/blob/master/TERMS_OF_SERVICE.md
   acceptTermsOfUse: false
+  suggestedFeeRecipient: "0xcd4D5334f541645e83499030b9CA29805d24561d"
+
   # -- http url to eth1 node (Your own or 3rd party)
   web3HttpProvider: ""
   # -- Peer to peer max peers. Try increase if missing attestations
@@ -42,7 +44,7 @@ beacon:
 
   persistentVolume:
     # -- Persistent volume size for the beacon data
-    size: 100Gi
+    size: 150Gi
 
   # resources:
   #   limits:

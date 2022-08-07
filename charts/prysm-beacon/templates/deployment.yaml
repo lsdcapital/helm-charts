@@ -43,6 +43,7 @@ spec:
             - "--rpc-host={{ .Values.beacon.rpcHost }}"
             - "--monitoring-host=0.0.0.0"
             - "--monitoring-port={{ .Values.beacon.ports.monitoring }}"
+            - "--suggested-fee-recipient={{ .Values.beacon.suggestedFeeRecipient }}"
             {{- if .Values.beacon.eth1HeaderReqLimit }}
             - "--eth1-header-req-limit={{ .Values.beacon.eth1HeaderReqLimit }}"
             {{- end }}
