@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "besu.fullname" . }}
+  labels:
+    {{- include "besu.labels" . | nindent 4 }}
+    app: {{ template "besu.name" . }}
+spec:
+  selector:
+    matchLabels:
+    {{- include "besu.selectorLabels" . | nindent 6 }}
+  serviceName: {{ template "besu.fullname" . }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+      {{- include "besu.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- if .Values.debug.main }}
+          image: centos:8
+          command: ['sleep']
+          args: ['infinity']
+          {{- else }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          args:
+            - "--data-path={{ .Values.besu.dataDir }}"
+            - "--rpc-http-enabled"
+            - "--sync-mode=X_SNAP"
+            - "--data-storage-format=BONSAI"
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+          {{ toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.besu.dataDir }}
+          # livenessProbe:
+          #   httpGet:
+          #     path: {{ .Values.deployment.healthEndpoint }}
+          #     port: {{ .Values.ports.metrics }}
+          # readinessProbe:
+          #   httpGet:
+          #     path: {{ .Values.deployment.healthEndpoint }}
+          #     port: {{ .Values.ports.metrics }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: {{ .Values.ports.monitoring }}
+              protocol: TCP
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+        {{ .Values.nodeSelector }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        {{- if .Values.besu.persistentVolume.storageClassName }}
+        storageClassName: {{ .Values.besu.persistentVolume.storageClassName }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.besu.persistentVolume.size }}
