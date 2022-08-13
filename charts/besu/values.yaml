@@ -16,7 +16,14 @@ besu:
 
   persistentVolume:
     storageClassName: ""
-    size: 20Gi
+    size: 1000Gi
+
+  debug:
+      # -- Init container debug
+      main: false
+  
+  ports:
+    monitoring: 8000
 
 
 imagePullSecrets: []
@@ -46,8 +53,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 80
+  type: LoadBalancer
 
 ingress:
   enabled: false

@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          {{- if .Values.debug.main }}
+          {{- if .Values.besu.debug.main }}
           image: centos:8
           command: ['sleep']
           args: ['infinity']
@@ -26,28 +26,32 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           args:
             - "--data-path={{ .Values.besu.dataDir }}"
+            - "--network=mainnet"
             - "--rpc-http-enabled"
-            - "--sync-mode=X_SNAP"
+            - "--sync-mode=X_CHECKPOINT"
             - "--data-storage-format=BONSAI"
+            - "--rpc-http-host=0.0.0.0"
+            - "--rpc-http-cors-origins=*"
+            - "--rpc-ws-enabled=true"
+            - "--rpc-ws-host=0.0.0.0"
+            - "--host-allowlist=*"
+            - "--engine-host-allowlist=*"
+            - "--engine-rpc-port=8550"
+            - "--Xmerge-support=true"
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
           resources:
           {{ toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: data
               mountPath: {{ .Values.besu.dataDir }}
-          # livenessProbe:
-          #   httpGet:
-          #     path: {{ .Values.deployment.healthEndpoint }}
-          #     port: {{ .Values.ports.metrics }}
-          # readinessProbe:
-          #   httpGet:
-          #     path: {{ .Values.deployment.healthEndpoint }}
-          #     port: {{ .Values.ports.metrics }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           ports:
-            - containerPort: {{ .Values.ports.monitoring }}
+            - containerPort: {{ .Values.besu.ports.monitoring }}
               protocol: TCP
       {{- if .Values.nodeSelector }}
       nodeSelector:

@@ -5,11 +5,29 @@ metadata:
   labels:
     {{- include "besu.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: ClusterIP
   ports:
-    - port: {{ .Values.validator.ports.monitoring }}
-      targetPort: {{ .Values.validator.ports.monitoring }}
+    - port: 8550
+      targetPort: 8550
       protocol: TCP
-      name: monitoring
+      name: engine      
+  selector:
+    {{- include "besu.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "besu.fullname" . }}-lb
+  labels:
+    {{- include "besu.labels" . | nindent 4 }}
+spec:
+  type: LoadBalancer
+  ports:
+  - name: "json-rpc"
+    port: 8545
+    targetPort: 8545
+  - name: "rlpx"
+    port: 30303
+    targetPort: 30303
   selector:
     {{- include "besu.selectorLabels" . | nindent 4 }}
