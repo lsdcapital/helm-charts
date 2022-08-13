@@ -10,14 +10,18 @@ spec:
       targetPort: {{.Values.beacon.ports.grpc}}
       protocol: TCP
       name: grpc
-    - port: {{.Values.beacon.ports.p2pUdp}}
-      targetPort: {{.Values.beacon.ports.p2pUdp}}
-      protocol: UDP
-      name: p2pudp
-    - port: {{.Values.beacon.ports.p2pTcp}}
-      targetPort: {{.Values.beacon.ports.p2pTcp}}
+    - port: 3500
+      targetPort: 3500
       protocol: TCP
-      name: p2ptcp
+      name: rpc
+    # - port: {{.Values.beacon.ports.p2pUdp}}
+    #   targetPort: {{.Values.beacon.ports.p2pUdp}}
+    #   protocol: UDP
+    #   name: p2pudp
+    # - port: {{.Values.beacon.ports.p2pTcp}}
+    #   targetPort: {{.Values.beacon.ports.p2pTcp}}
+    #   protocol: TCP
+    #   name: p2ptcp
     - port: {{.Values.beacon.ports.monitoring}}
       targetPort: {{.Values.beacon.ports.monitoring}}
       protocol: TCP

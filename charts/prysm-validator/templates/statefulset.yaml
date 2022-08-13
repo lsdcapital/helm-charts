@@ -31,7 +31,6 @@ spec:
             - "--wallet-dir=/keys"
             - "--wallet-password-file=/keys/import/walletpass"
             - "--account-password-file=/keys/import/validatorpass"
-            - "--suggested-fee-recipient={{ .Values.validator.suggestedFeeRecipient }}"
             - "--{{ .Values.validator.chain }}"
             {{- if .Values.validator.acceptTermsOfUse }}
             - "--accept-terms-of-use"
@@ -59,6 +58,7 @@ spec:
             - "--monitoring-host=0.0.0.0"
             - "--monitoring-port={{ .Values.validator.ports.monitoring }}"
             - "--{{ .Values.validator.chain }}"
+            - "--suggested-fee-recipient={{ .Values.validator.suggestedFeeRecipient }}"
             {{- if .Values.validator.graffiti }}
             - "--graffiti={{ .Values.validator.graffiti }}"
             {{- end }}
