@@ -50,7 +50,7 @@ spec:
           volumeMounts:
             - name: data
               mountPath: {{ .Values.besu.dataDir }}
-            - mountPath: {{ .Values.besu.dataDir/jwt.hex }}
+            - mountPath: {{ .Values.besu.dataDir }}/jwt.hex
               name: jwt-hex
               subPath: "jwt.hex"
           resources:
