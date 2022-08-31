@@ -10,7 +10,11 @@ spec:
     - port: 8550
       targetPort: 8550
       protocol: TCP
-      name: engine      
+      name: engine
+    - port: 8551
+      targetPort: 8551
+      protocol: TCP
+      name: jwt
   selector:
     {{- include "besu.selectorLabels" . | nindent 4 }}
 ---
