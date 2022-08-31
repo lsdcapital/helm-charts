@@ -28,10 +28,10 @@ spec:
       securityContext:
         {{- toYaml .Values.beacon.deployment.podSecurityContext | nindent 8 }}
       volumes:
-      - name: node-data
-      - name: jwt-hex
-        secret:
-          secretName: jwt-hex      
+        - name: node-data
+        - name: jwt-hex
+          secret:
+            secretName: jwt-hex      
         persistentVolumeClaim:
           claimName: {{ include "prysm-beacon.fullname" . }}
       containers:
@@ -77,11 +77,11 @@ spec:
               containerPort: {{ .Values.beacon.ports.monitoring }}
               protocol: TCP
           volumeMounts:
-          - name: node-data
-            mountPath: {{ .Values.beacon.deployment.dataDir }}
-          - mountPath: {{ .Values.beacon.deployment.dataDir }}/jwt.hex
-            name: jwt-hex
-            subPath: "jwt.hex"
+            - name: node-data
+              mountPath: {{ .Values.beacon.deployment.dataDir }}
+            - mountPath: {{ .Values.beacon.deployment.dataDir }}/jwt.hex
+              name: jwt-hex
+              subPath: "jwt.hex"
       {{- if .Values.beacon.nodeSelector }}
       nodeSelector:
         {{ .Values.beacon.nodeSelector }}
