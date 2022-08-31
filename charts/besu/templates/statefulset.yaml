@@ -38,7 +38,7 @@ spec:
             - "--engine-host-allowlist=*"
             - "--engine-jwt-enabled=true"
             - "--engine-jwt-secret={{ .Values.besu.dataDir }}/jwt.hex"
-            - "--engine-rpc-port=8550"
+            - "--engine-rpc-port=8551"
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           securityContext:

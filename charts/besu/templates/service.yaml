@@ -7,14 +7,14 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 8550
-      targetPort: 8550
+    - port: 8545
+      targetPort: 8545
       protocol: TCP
-      name: engine
+      name: json-rpc
     - port: 8551
       targetPort: 8551
       protocol: TCP
-      name: jwt
+      name: engine-rpc
   selector:
     {{- include "besu.selectorLabels" . | nindent 4 }}
 ---
@@ -27,9 +27,6 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - name: "json-rpc"
-    port: 8545
-    targetPort: 8545
   - name: "rlpx"
     port: 30303
     targetPort: 30303
