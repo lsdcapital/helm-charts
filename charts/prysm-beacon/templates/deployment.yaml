@@ -44,6 +44,7 @@ spec:
             - "--monitoring-host=0.0.0.0"
             - "--monitoring-port={{ .Values.beacon.ports.monitoring }}"
             - "--grpc-gateway-host=0.0.0.0"
+            - "--jwt-secret={{ {{ .Values.beacon.deployment.dataDir }}/jwt.hex"
             - "--suggested-fee-recipient={{ .Values.beacon.suggestedFeeRecipient }}"
             {{- if .Values.beacon.eth1HeaderReqLimit }}
             - "--eth1-header-req-limit={{ .Values.beacon.eth1HeaderReqLimit }}"
@@ -75,6 +76,13 @@ spec:
           volumeMounts:
           - name: node-data
             mountPath: {{ .Values.beacon.deployment.dataDir }}
+          - mountPath: {{ .Values.beacon.deployment.dataDir }}/jwt.hex
+            name: jwt-hex
+            subPath: "jwt.hex"
+      volumes:
+        - name: jwt-hex
+          secret:
+            secretName: jwt-hex
       {{- if .Values.beacon.nodeSelector }}
       nodeSelector:
         {{ .Values.beacon.nodeSelector }}
