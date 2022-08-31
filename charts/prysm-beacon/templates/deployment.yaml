@@ -47,7 +47,7 @@ spec:
             - "--monitoring-host=0.0.0.0"
             - "--monitoring-port={{ .Values.beacon.ports.monitoring }}"
             - "--grpc-gateway-host=0.0.0.0"
-            - "--jwt-secret={{ .Values.beacon.deployment.dataDir }}/jwt.hex"
+            - "--jwt-secret={{ .Values.beacon.deployment.dataDir }}/jwt.hex2"
             - "--suggested-fee-recipient={{ .Values.beacon.suggestedFeeRecipient }}"
             {{- if .Values.beacon.eth1HeaderReqLimit }}
             - "--eth1-header-req-limit={{ .Values.beacon.eth1HeaderReqLimit }}"
