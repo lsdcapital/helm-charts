@@ -39,7 +39,6 @@ spec:
             - "--engine-jwt-enabled=true"
             - "--engine-jwt-secret={{ .Values.besu.dataDir }}/jwt.hex"
             - "--engine-rpc-port=8550"
-            - "--Xmerge-support=true"
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           securityContext:
