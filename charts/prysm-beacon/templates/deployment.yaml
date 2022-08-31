@@ -35,7 +35,7 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.beacon.image.repository }}:{{ .Values.beacon.image.tag | default .Chart.AppVersion }}"
           args:
-            - "--http-web3provider={{ .Values.beacon.web3HttpProvider }}"
+            - "--execution-endpoint={{ .Values.beacon.executionEndpoint }}"
             - "--verbosity={{ .Values.beacon.verbosity }}"
             - "--datadir={{ .Values.beacon.deployment.dataDir }}"
             - "--log-file={{ .Values.beacon.logfile }}"
@@ -47,9 +47,6 @@ spec:
             - "--suggested-fee-recipient={{ .Values.beacon.suggestedFeeRecipient }}"
             {{- if .Values.beacon.eth1HeaderReqLimit }}
             - "--eth1-header-req-limit={{ .Values.beacon.eth1HeaderReqLimit }}"
-            {{- end }}
-            {{- if .Values.beacon.FallbackWeb3Provider }}
-            - "--fallback-web3provider={{ .Values.beacon.FallbackWeb3Provider }}"
             {{- end }}
             {{- if .Values.beacon.acceptTermsOfUse }}
             - "--accept-terms-of-use"
