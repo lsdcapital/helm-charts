@@ -48,6 +48,9 @@ spec:
           volumeMounts:
             - name: data
               mountPath: {{ .Values.besu.dataDir }}
+            - mountPath: {{ .Values.besu.dataDir/jwt.hex }}
+              name: jwt-hex
+              subPath: "jwt.hex"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           ports:
@@ -65,6 +68,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: jwt-hex
+          secret:
+            secretName: jwt-hex
   volumeClaimTemplates:
     - metadata:
         name: data

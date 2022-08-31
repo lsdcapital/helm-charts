@@ -13,6 +13,7 @@ image:
 
 besu:
   dataDir: "/data"
+  jwthex: ""
 
   persistentVolume:
     storageClassName: ""

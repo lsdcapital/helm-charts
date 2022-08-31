@@ -12,6 +12,7 @@ beacon:
   # -- http url to eth1 node (Your own or 3rd party)
   executionEndpoint: ""
   # -- Peer to peer max peers. Try increase if missing attestations
+  jwthex: ""
   p2pMaxPeers: 70
   logfile: /data/beacon.log
   verbosity: info
