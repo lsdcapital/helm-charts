@@ -29,11 +29,11 @@ spec:
         {{- toYaml .Values.beacon.deployment.podSecurityContext | nindent 8 }}
       volumes:
         - name: node-data
+          persistentVolumeClaim:
+            claimName: {{ include "prysm-beacon.fullname" . }}
         - name: jwt-hex
           secret:
             secretName: jwt-hex      
-        persistentVolumeClaim:
-          claimName: {{ include "prysm-beacon.fullname" . }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.beacon.image.repository }}:{{ .Values.beacon.image.tag | default .Chart.AppVersion }}"
