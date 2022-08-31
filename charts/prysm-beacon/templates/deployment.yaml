@@ -31,9 +31,9 @@ spec:
         - name: node-data
           persistentVolumeClaim:
             claimName: {{ include "prysm-beacon.fullname" . }}
-        - name: jwt-hex
+        - name: prysm-jwt-hex
           secret:
-            secretName: jwt-hex      
+            secretName: prysm-jwt-hex      
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.beacon.image.repository }}:{{ .Values.beacon.image.tag | default .Chart.AppVersion }}"
@@ -47,7 +47,7 @@ spec:
             - "--monitoring-host=0.0.0.0"
             - "--monitoring-port={{ .Values.beacon.ports.monitoring }}"
             - "--grpc-gateway-host=0.0.0.0"
-            - "--jwt-secret={{ .Values.beacon.deployment.dataDir }}/jwt.hex2"
+            - "--jwt-secret={{ .Values.beacon.deployment.dataDir }}/jwt.hex"
             - "--suggested-fee-recipient={{ .Values.beacon.suggestedFeeRecipient }}"
             {{- if .Values.beacon.eth1HeaderReqLimit }}
             - "--eth1-header-req-limit={{ .Values.beacon.eth1HeaderReqLimit }}"
@@ -80,7 +80,7 @@ spec:
             - name: node-data
               mountPath: {{ .Values.beacon.deployment.dataDir }}
             - mountPath: {{ .Values.beacon.deployment.dataDir }}/jwt.hex
-              name: jwt-hex
+              name: prysm-jwt-hex
               subPath: "jwt.hex"
       {{- if .Values.beacon.nodeSelector }}
       nodeSelector:

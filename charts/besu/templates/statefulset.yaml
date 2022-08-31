@@ -50,7 +50,7 @@ spec:
             - name: data
               mountPath: {{ .Values.besu.dataDir }}
             - mountPath: {{ .Values.besu.dataDir }}/jwt.hex
-              name: jwt-hex
+              name: besu-jwt-hex
               subPath: "jwt.hex"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -70,9 +70,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: jwt-hex
+        - name: besu-jwt-hex
           secret:
-            secretName: jwt-hex
+            secretName: besu-jwt-hex
   volumeClaimTemplates:
     - metadata:
         name: data
