@@ -2,8 +2,8 @@ apiVersion: v2
 name: prysm-beacon
 description: Eth2 Beacon Chain Node by Prysmatic Labs
 type: application
-version: 1.0.13
-appVersion: v3.0.0
+version: 1.0.14
+appVersion: v3.1.1
 sources: [http://github.com/lsdcapital/helm-charts/prysm-beacon]
 
 maintainers:

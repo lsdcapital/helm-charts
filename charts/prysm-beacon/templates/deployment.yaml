@@ -61,6 +61,9 @@ spec:
             {{- if .Values.beacon.ingress.extdns }}
             - "--p2p-host-dns={{ .Values.beacon.ingress.extdns }}"
             {{- end }}
+            {{- if .Values.beacon.httpMevRelay }}
+            - "--http-mev-relay={{ .Values.beacon.httpMevRelay }}"
+            {{- end }}
             - "--{{ .Values.beacon.chain }}"
           imagePullPolicy: {{ .Values.beacon.image.pullPolicy }}
           resources:

@@ -9,6 +9,7 @@ beacon:
   acceptTermsOfUse: false
   suggestedFeeRecipient: "0xcd4D5334f541645e83499030b9CA29805d24561d"
 
+  httpMevRelay: ""
   # -- http url to eth1 node (Your own or 3rd party)
   executionEndpoint: ""
   # -- Peer to peer max peers. Try increase if missing attestations
