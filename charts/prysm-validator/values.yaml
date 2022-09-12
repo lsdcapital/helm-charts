@@ -11,6 +11,7 @@ validator:
   beacon: "prysm-beacon:4000"
   logfile: /data/validator.log
   verbosity: info
+  builder: false
   debug:
     # -- Init container (prysm-import) debug
     init: false

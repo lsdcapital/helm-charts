@@ -65,6 +65,9 @@ spec:
             {{- if .Values.validator.acceptTermsOfUse }}
             - "--accept-terms-of-use"
             {{- end }}
+            {{- if .Values.validator.builder }}
+            - "--enable-builder"
+            {{- end }}
           {{- end }}
           imagePullPolicy: {{ .Values.validator.image.pullPolicy }}
           resources:
