@@ -9,10 +9,10 @@ spec:
     app.kubernetes.io/instance: {{ .Release.Name }}
   ports:
     - port: {{ .Values.beacon.ports.p2pTcp }}
-      name: p2pTcp
+      name: p2ptcp
       protocol: TCP
     - port: {{ .Values.beacon.ports.p2pUdp }}
-      name: p2pUdp
+      name: p2pudp
       protocol: UDP
   type: LoadBalancer
 #  loadBalancerIP: {{ .Values.beacon.ingress.extip }}
