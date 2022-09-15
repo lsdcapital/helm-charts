@@ -42,7 +42,9 @@ spec:
             - "--verbosity={{ .Values.beacon.verbosity }}"
             - "--datadir={{ .Values.beacon.deployment.dataDir }}"
             - "--log-file={{ .Values.beacon.logfile }}"
+            {{- if .Values.beacon.p2pMaxPeers }}
             - "--p2p-max-peers={{ .Values.beacon.p2pMaxPeers }}"
+            {{- end }}
             - "--rpc-host={{ .Values.beacon.rpcHost }}"
             - "--monitoring-host=0.0.0.0"
             - "--monitoring-port={{ .Values.beacon.ports.monitoring }}"

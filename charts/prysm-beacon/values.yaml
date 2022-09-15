@@ -14,7 +14,7 @@ beacon:
   executionEndpoint: ""
   # -- Peer to peer max peers. Try increase if missing attestations
   jwthex: ""
-  p2pMaxPeers: 70
+  p2pMaxPeers: false
   logfile: /data/beacon.log
   verbosity: info
   rpcHost: 0.0.0.0
