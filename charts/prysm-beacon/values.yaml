@@ -64,6 +64,8 @@ beacon:
   ports:
     p2pTcp: 13000
     p2pUdp: 12000
+    p2pUdpDiscovery: 30303
+    p2pTcpDiscovery: 30303
     grpc: 4000
     monitoring: 8080
 

@@ -75,6 +75,10 @@ spec:
               protocol: TCP
             - containerPort: {{ .Values.beacon.ports.p2pUdp }}
               protocol: UDP
+            - containerPort: {{ .Values.beacon.ports.p2pTcpDiscovery }}
+              protocol: TCP
+            - containerPort: {{ .Values.beacon.ports.p2pUdpDiscovery }}
+              protocol: UDP
             - name: grpc
               containerPort: {{ .Values.beacon.ports.grpc }}
               protocol: TCP

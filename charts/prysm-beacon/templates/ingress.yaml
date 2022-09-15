@@ -14,20 +14,11 @@ spec:
     - port: {{ .Values.beacon.ports.p2pUdp }}
       name: p2pudp
       protocol: UDP
+    - port: {{ .Values.beacon.ports.p2pTcpDiscovery }}
+      name: p2ptcpdiscovery
+      protocol: TCP
+    - port: {{ .Values.beacon.ports.p2pUdpDiscovery }}
+      name: p2pudpdiscovery
+      protocol: UDP
   type: LoadBalancer
-#  loadBalancerIP: {{ .Values.beacon.ingress.extip }}
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: {{ include "prysm-beacon.fullname" . }}-udp-lb
-# spec:
-#   selector:
-#     app.kubernetes.io/name: {{ include "prysm-beacon.name" . }}
-#     app.kubernetes.io/instance: {{ .Release.Name }}
-#   ports:
-#     - port: {{ .Values.beacon.ports.p2pUdp }}
-#       protocol: UDP
-#   type: LoadBalancer
-# #  loadBalancerIP: {{ .Values.beacon.ingress.extip }}
 {{- end }}
