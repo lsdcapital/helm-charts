@@ -40,6 +40,9 @@ spec:
             - "--engine-jwt-secret={{ .Values.besu.dataDir }}/jwt.hex"
             - "--engine-rpc-port=8551"
           {{- end }}
+          env:
+            - name: "BESU_OPTS"
+              value: "{{ .Values.besu.besuOpts }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           securityContext:
             allowPrivilegeEscalation: false
