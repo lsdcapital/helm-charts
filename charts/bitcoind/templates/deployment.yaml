@@ -47,7 +47,7 @@ spec:
             {{- if .Values.config.whitelist }}
             - "-whitelist={{ .Values.config.whitelist }}"
             {{- end }}
-            - "-testnet=0"
+            - "-testnet={{ .Values.config.testnet }}"
             - "-listen=1"
             - "-server=1"
             {{- if gt (.Values.config.prune | toString | atoi) 0 }}
