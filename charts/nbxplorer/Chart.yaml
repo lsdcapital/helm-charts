@@ -24,5 +24,5 @@ appVersion: 2.2.20
 
 dependencies:
   - name: rabbitmq
-    version: "8.29.0"
+    version: "11.8.0"
     repository: https://charts.bitnami.com/bitnami
