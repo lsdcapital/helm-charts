@@ -27,6 +27,8 @@ spec:
       serviceAccountName: {{ include "lnd.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+       {{- if .Values.debug }}
+          {{- else }}
       initContainers:
       - name: lnd-init
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -48,6 +50,7 @@ spec:
         volumeMounts:
           - mountPath: /data
             name: lnd
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -116,6 +119,8 @@ spec:
             - "--tor.control={{ .Values.tor.controlhost }}:{{ .Values.tor.controlport }}"
             {{- end }}
             {{- end }}
+          {{- if .Values.debug }}
+          {{- else }}
           lifecycle:
             postStart:
               exec:
@@ -123,6 +128,7 @@ spec:
                 - /bin/sh
                 - -c
                 - "until lncli --lnddir=/data unlock --stdin < /data/.walletpass; do echo Waiting for wallet; sleep 5; done"
+          {{- end }}
           volumeMounts:
           - mountPath: /data
             name: lnd
