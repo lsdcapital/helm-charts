@@ -52,6 +52,11 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.debug }}
+          image: centos:8
+          command: ['sleep']
+          args: ['infinity']
+          {{- else }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
@@ -109,6 +114,7 @@ spec:
             - "--tor.password={{ .Values.tor.password }}"
             - "--tor.socks={{ .Values.tor.sockshost }}:{{ .Values.tor.socksport }}"
             - "--tor.control={{ .Values.tor.controlhost }}:{{ .Values.tor.controlport }}"
+            {{- end }}
             {{- end }}
           lifecycle:
             postStart:
